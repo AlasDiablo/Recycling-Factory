@@ -17,14 +17,14 @@ import org.jetbrains.annotations.NotNull;
 public class ScrapBoxUseBehavior extends DefaultDispenseItemBehavior {
     private static final int SPEED = 6;
 
-    private final ScrapBoxBehavior.ScrapBoxResultTier tier;
+    private final ScrapBoxResultTier tier;
 
-    public ScrapBoxUseBehavior(ScrapBoxBehavior.ScrapBoxResultTier tier) {
+    public ScrapBoxUseBehavior(ScrapBoxResultTier tier) {
         this.tier = tier;
     }
 
     public static @NotNull InteractionResultHolder<ItemStack> use(
-            @NotNull Level level, @NotNull Player player, InteractionHand usedHand, ScrapBoxBehavior.ScrapBoxResultTier tier
+            @NotNull Level level, @NotNull Player player, InteractionHand usedHand, ScrapBoxResultTier tier
     ) {
         ItemStack scrapBoxStack = player.getItemInHand(usedHand);
         Vec3      direction     = player.getLookAngle();

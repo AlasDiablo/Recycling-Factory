@@ -4,15 +4,26 @@ import com.mojang.datafixers.util.Pair;
 import fr.alasdiablo.mods.factory.recycling.api.ChanceDrop;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unused")
 public class ScrapBoxBehavior {
     private static final List<Pair<Pair<ScrapBoxResultType, ScrapBoxResultTier>, ChanceDrop>> RAW_DROPS                   = new ArrayList<>();
     private static final Map<ScrapBoxResultTier, ScrapBoxDropHandler>                         TIER_SCRAP_BOX_DROP_HANDLER = new HashMap<>();
 
+    /**
+     * Get a random item from the scrap box loot table and return it
+     *
+     * @param tier Scrap box tier
+     *
+     * @return A random item with custom durability if it is a tool or an armor
+     */
     public static @NotNull ItemStack getResultItem(ScrapBoxResultTier tier) {
         if (TIER_SCRAP_BOX_DROP_HANDLER.isEmpty()) {
             return ItemStack.EMPTY;
@@ -24,77 +35,113 @@ public class ScrapBoxBehavior {
         return RAW_DROPS.stream().map(Pair::getSecond).toList();
     }
 
+    /**
+     * Function use by internal components of Recycling Factory, please do not use it!
+     * Create four loot table with mathematically spread entry, this is used to get a loot with a percentage of drop.
+     */
     @Deprecated
     public static void updateChance() {
         for (ScrapBoxResultTier tier: ScrapBoxResultTier.values()) {
-            List<Pair<ScrapBoxResultType, ChanceDrop>> drops = RAW_DROPS.stream().map(drop -> Pair.of(
-                    drop.getFirst().getFirst(),
-                    drop.getSecond()
-            )).toList();
+            List<Pair<ScrapBoxResultType, ChanceDrop>> drops = RAW_DROPS
+                    .stream()
+                    .filter(drop -> drop.getFirst().getSecond() == tier)
+                    .map(drop -> Pair.of(
+                            drop.getFirst().getFirst(),
+                            drop.getSecond()
+                    )).toList();
             TIER_SCRAP_BOX_DROP_HANDLER.put(tier, new ScrapBoxDropHandler(drops));
         }
     }
 
+    /**
+     * Add a tool item in the scrap box loot table
+     *
+     * @param tier      Targeted scrap box tier
+     * @param item      Item to loot
+     * @param rawChance The presence of the item in the loot table
+     */
     public static void addToolDrop(ScrapBoxResultTier tier, Item item, float rawChance) {
         addDrop(ScrapBoxResultType.TOOL, tier, item, rawChance);
     }
 
+    /**
+     * Add an armor item in the scrap box loot table
+     *
+     * @param tier      Targeted scrap box tier
+     * @param item      Item to loot
+     * @param rawChance The presence of the item in the loot table
+     */
     public static void addArmorDrop(ScrapBoxResultTier tier, Item item, float rawChance) {
         addDrop(ScrapBoxResultType.TOOL, tier, item, rawChance);
     }
 
+    /**
+     * Add a standard item in the scrap box loot table
+     *
+     * @param tier      Targeted scrap box tier
+     * @param item      Item to loot
+     * @param rawChance The presence of the item in the loot table
+     */
     public static void addItemDrop(ScrapBoxResultTier tier, Item item, float rawChance) {
         addDrop(ScrapBoxResultType.NORMAL, tier, item, rawChance);
     }
 
+    /**
+     * Add a new entry in the scrap box loot table
+     *
+     * @param type      Type of loot, standard item or item with durability like tools
+     * @param tier      Targeted scrap box tier
+     * @param item      Item to loot
+     * @param rawChance The presence of the item in the loot table
+     */
     public static void addDrop(ScrapBoxResultType type, ScrapBoxResultTier tier, Item item, float rawChance) {
         RAW_DROPS.add(Pair.of(Pair.of(type, tier), ChanceDrop.of(item, rawChance)));
     }
 
-    private static class ScrapBoxDropHandler {
-        private final NavigableMap<Float, Pair<ScrapBoxResultType, Item>> PROCESS_DROP_TABLE = new TreeMap<>();
-        private final Random                                              RANDOM             = new Random();
-        private       float                                               totalChance        = 0f;
+    /**
+     * Function use by internal components of Recycling Factory, please do not use it!
+     * Register the initial loot table of each scrap box
+     */
+    @Deprecated
+    public static void registerDrop() {
+        addToolDrop(ScrapBoxResultTier.BASIC, Items.WOODEN_PICKAXE, 0.45f);
+        addToolDrop(ScrapBoxResultTier.BASIC, Items.WOODEN_AXE, 0.45f);
+        addToolDrop(ScrapBoxResultTier.BASIC, Items.WOODEN_HOE, 0.45f);
+        addToolDrop(ScrapBoxResultTier.BASIC, Items.WOODEN_SHOVEL, 0.45f);
+        addToolDrop(ScrapBoxResultTier.BASIC, Items.WOODEN_SWORD, 0.45f);
 
-        private ScrapBoxDropHandler(@NotNull List<Pair<ScrapBoxResultType, ChanceDrop>> rawDrops) {
-            float totalRawChance = 0f;
-            for (Pair<ScrapBoxResultType, ChanceDrop> drop: rawDrops) {
-                totalRawChance += drop.getSecond().getRawChance();
-            }
-            PROCESS_DROP_TABLE.clear();
-            totalChance = 0f;
-            for (Pair<ScrapBoxResultType, ChanceDrop> drop: rawDrops) {
-                drop.getSecond().processChance(totalRawChance);
-                totalChance += drop.getSecond().getCalculatedChance();
-                PROCESS_DROP_TABLE.put(totalChance, Pair.of(drop.getFirst(), drop.getSecond().getDrop()));
-            }
-        }
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.EMERALD, 0.05f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.DIAMOND, 0.05f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.REDSTONE, 0.30f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.GLOWSTONE_DUST, 0.30f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.RAW_IRON, 0.80f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.RAW_GOLD, 0.5f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.LAPIS_LAZULI, 0.5f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.COAL, 0.80f);
 
-        public @NotNull ItemStack getResultItem() {
-            float                          chance = RANDOM.nextFloat() * totalChance;
-            Pair<ScrapBoxResultType, Item> drop   = PROCESS_DROP_TABLE.higherEntry(chance).getValue();
-            ItemStack                      output;
-            switch (drop.getFirst()) {
-                case TOOL -> {
-                    output = new ItemStack(drop.getSecond());
-                    output.setDamageValue(RANDOM.nextInt(output.getMaxDamage()));
-                }
-                case NORMAL -> output = new ItemStack(drop.getSecond());
-                default -> throw new IllegalStateException("Invalid ScrapResultType for : " + drop.getSecond().toString());
-            }
-            return output;
-        }
-    }
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.COOKED_CHICKEN, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.COOKED_BEEF, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.COOKED_MUTTON, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.COOKED_COD, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.COOKED_PORKCHOP, 1.0f);
 
-    public enum ScrapBoxResultType {
-        TOOL,
-        NORMAL
-    }
-
-    public enum ScrapBoxResultTier {
-        BASIC,
-        ADVANCED,
-        ELITE,
-        ULTIMATE
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.STICK, 5.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.DIRT, 6.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.SAND, 4.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.GRASS_BLOCK, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.GRAVEL, 3.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.COBBLESTONE, 2.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.OAK_PLANKS, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.ACACIA_PLANKS, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.BIRCH_PLANKS, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.JUNGLE_PLANKS, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.SPRUCE_PLANKS, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.DARK_OAK_PLANKS, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.RED_SAND, 2.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.CLAY_BALL, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.GRANITE, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.ANDESITE, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.DIORITE, 1.0f);
+        addItemDrop(ScrapBoxResultTier.BASIC, Items.WHEAT_SEEDS, 2.0f);
     }
 }
