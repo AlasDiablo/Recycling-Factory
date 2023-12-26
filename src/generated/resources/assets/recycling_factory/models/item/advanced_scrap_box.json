@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "recycling_factory:item/advanced_scrap_box"
+  }
+}

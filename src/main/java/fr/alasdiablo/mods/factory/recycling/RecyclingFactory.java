@@ -1,23 +1,31 @@
 package fr.alasdiablo.mods.factory.recycling;
 
 import com.mojang.logging.LogUtils;
+import fr.alasdiablo.mods.factory.recycling.data.model.RecyclingFactoryItemModelProvider;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxBehavior;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxResultTier;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxUseBehavior;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
+
+import java.util.concurrent.CompletableFuture;
 
 @Mod(RecyclingFactory.MODID)
 public class RecyclingFactory {
@@ -28,7 +36,7 @@ public class RecyclingFactory {
 
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RECYCLING_FACTORY_TAB = CREATIVE_MODE_TABS.register(
             "recycling_factory_tab", () -> CreativeModeTab.builder()
-                    .withTabsBefore(CreativeModeTabs.COMBAT)
+                    .title(Component.translatable("item_group." + MODID))
                     .icon(() -> RecyclingFactoryItems.SCRAP.get().getDefaultInstance())
                     .build()
     );
@@ -39,6 +47,9 @@ public class RecyclingFactory {
 
         LOGGER.debug("Add common setup listener");
         modEventBus.addListener(this::onCommonSetup);
+
+        LOGGER.debug("Add gather data listener");
+        modEventBus.addListener(this::onGatherData);
 
         LOGGER.debug("Register creative tab");
         CREATIVE_MODE_TABS.register(modEventBus);
@@ -87,5 +98,16 @@ public class RecyclingFactory {
             ScrapBoxBehavior.updateChance();
             this.worldLoadOneTimeAction = false;
         }
+    }
+
+    private void onGatherData(@NotNull GatherDataEvent event) {
+        LOGGER.debug("Start data generator");
+        final DataGenerator                            generator = event.getGenerator();
+        final PackOutput                               output             = generator.getPackOutput();
+        final CompletableFuture<HolderLookup.Provider> lookup             = event.getLookupProvider();
+        final ExistingFileHelper                       existingFileHelper = event.getExistingFileHelper();
+
+        LOGGER.debug("Add Item Model Provider");
+        generator.addProvider(event.includeClient(), new RecyclingFactoryItemModelProvider(output, existingFileHelper));
     }
 }
