@@ -12,7 +12,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
 public class RecyclingFactoryItems {
-    public static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(RecyclingFactory.MODID);
+    static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(RecyclingFactory.MODID);
 
     public static final DeferredItem<Item> SCRAP = ITEMS.registerSimpleItem(Registries.SCRAP);
 

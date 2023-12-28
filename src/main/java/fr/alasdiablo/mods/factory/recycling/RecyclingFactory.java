@@ -2,6 +2,8 @@ package fr.alasdiablo.mods.factory.recycling;
 
 import com.mojang.logging.LogUtils;
 import fr.alasdiablo.mods.factory.recycling.data.model.RecyclingFactoryItemModelProvider;
+import fr.alasdiablo.mods.factory.recycling.data.recipe.RecyclingFactoryRecipeProvider;
+import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryBlocks;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxBehavior;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxResultTier;
@@ -27,6 +29,7 @@ import org.slf4j.Logger;
 
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("deprecation")
 @Mod(RecyclingFactory.MODID)
 public class RecyclingFactory {
     public static final  String MODID  = "recycling_factory";
@@ -57,8 +60,12 @@ public class RecyclingFactory {
         LOGGER.debug("Register items");
         RecyclingFactoryItems.register(modEventBus);
 
+        LOGGER.debug("Register blocks");
+        RecyclingFactoryBlocks.register(modEventBus);
+
         LOGGER.debug("Add creative tab contents listener");
         modEventBus.addListener(RecyclingFactoryItems::onBuildCreativeTabContents);
+        modEventBus.addListener(RecyclingFactoryBlocks::onBuildCreativeTabContents);
     }
 
     private void onCommonSetup(FMLClientSetupEvent event) {
@@ -109,5 +116,8 @@ public class RecyclingFactory {
 
         LOGGER.debug("Add Item Model Provider");
         generator.addProvider(event.includeClient(), new RecyclingFactoryItemModelProvider(output, existingFileHelper));
+
+        LOGGER.debug("Add Recipe Provider");
+        generator.addProvider(event.includeServer(), new RecyclingFactoryRecipeProvider(output, lookup));
     }
 }
