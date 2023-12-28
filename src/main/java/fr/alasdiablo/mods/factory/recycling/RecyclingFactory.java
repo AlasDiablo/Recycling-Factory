@@ -17,7 +17,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -68,7 +68,7 @@ public class RecyclingFactory {
         modEventBus.addListener(RecyclingFactoryBlocks::onBuildCreativeTabContents);
     }
 
-    private void onCommonSetup(FMLClientSetupEvent event) {
+    private void onCommonSetup(FMLCommonSetupEvent event) {
         LOGGER.debug("Register scrap box loot table");
         ScrapBoxBehavior.registerDrop();
 
@@ -101,7 +101,7 @@ public class RecyclingFactory {
 
     private void onWorldLoad(LevelEvent.Load event) {
         if (this.worldLoadOneTimeAction) {
-            LOGGER.debug("Generated scrap box loot table");
+            LOGGER.debug("Generated scrap box loot table (world load)");
             ScrapBoxBehavior.updateChance();
             this.worldLoadOneTimeAction = false;
         }
@@ -109,7 +109,7 @@ public class RecyclingFactory {
 
     private void onGatherData(@NotNull GatherDataEvent event) {
         LOGGER.debug("Start data generator");
-        final DataGenerator                            generator = event.getGenerator();
+        final DataGenerator                            generator          = event.getGenerator();
         final PackOutput                               output             = generator.getPackOutput();
         final CompletableFuture<HolderLookup.Provider> lookup             = event.getLookupProvider();
         final ExistingFileHelper                       existingFileHelper = event.getExistingFileHelper();

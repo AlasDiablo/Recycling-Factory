@@ -18,8 +18,6 @@ public class ScrapBoxDropHandler {
         for (Pair<ScrapBoxResultType, ChanceDrop> drop: rawDrops) {
             totalRawChance += drop.getSecond().getRawChance();
         }
-        PROCESS_DROP_TABLE.clear();
-        totalChance = 0f;
         for (Pair<ScrapBoxResultType, ChanceDrop> drop: rawDrops) {
             drop.getSecond().processChance(totalRawChance);
             totalChance += drop.getSecond().getCalculatedChance();

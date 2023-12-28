@@ -1,0 +1,61 @@
+# Scrap box chance drop
+
+## Basic Scrap box
+
+| Item            | Raw Chance |
+|-----------------|------------|
+| OAK_PLANKS      | 1          |
+| ACACIA_PLANKS   | 1          |
+| BIRCH_PLANKS    | 1          |
+| JUNGLE_PLANKS   | 1          |
+| SPRUCE_PLANKS   | 1          |
+| DARK_OAK_PLANKS | 1          |
+| MANGROVE_PLANKS | 1          |
+| CHERRY_PLANKS   | 1          |
+| BAMBOO_PLANKS   | 1          |
+| STICK           | 5          |
+| FLINT           | 1          |
+| INK_SAC         | 0.5        |
+| IRON_NUGGET     | 0.8        |
+| GOLD_NUGGET     | 0.5        |
+| FEATHER         | 1          |
+| STRING          | 1          |
+| COPPER_INGOT    | 1          |
+| LEATHER         | 1          |
+| QUARTZ          | 0.8        |
+| COAL            | 0.8        |
+| LAPIS_LAZULI    | 0.5        |
+| REDSTONE        | 0.3        |
+| GLOWSTONE_DUST  | 0.3        |
+| GUNPOWDER       | 0.3        |
+| CLAY_BALL       | 1          |
+| APPLE           | 1          |
+| COOKED_CHICKEN  | 1          |
+| COOKED_BEEF     | 1          |
+| COOKED_MUTTON   | 1          |
+| COOKED_COD      | 1          |
+| COOKED_PORKCHOP | 1          |
+| GRASS_BLOCK     | 1          |
+| DIRT            | 6          |
+| GRAVEL          | 3          |
+| COBBLESTONE     | 2          |
+| GRANITE         | 2          |
+| DIORITE         | 2          |
+| ANDESITE        | 2          |
+| SAND            | 4          |
+| RED_SAND        | 2          |
+| WOODEN_PICKAXE  | 0.45       |
+| WOODEN_AXE      | 0.45       |
+| WOODEN_HOE      | 0.45       |
+| WOODEN_SHOVEL   | 0.45       |
+| WOODEN_SWORD    | 0.45       |
+| STONE_PICKAXE   | 0.2        |
+| STONE_AXE       | 0.2        |
+| STONE_HOE       | 0.2        |
+| STONE_SHOVEL    | 0.2        |
+| STONE_SWORD     | 0.2        |
+| GOLDEN_PICKAXE  | 0.01       |
+| GOLDEN_AXE      | 0.01       |
+| GOLDEN_HOE      | 0.01       |
+| GOLDEN_SHOVEL   | 0.01       |
+| GOLDEN_SWORD    | 0.01       |
