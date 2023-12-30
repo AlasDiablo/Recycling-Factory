@@ -7,6 +7,8 @@
   "item.recycling_factory.elite_scrap_box": "§bElite Scrap Box",
   "item.recycling_factory.ultimate_scrap_box": "§dUltimate Scrap Box",
 
+  "block.recycling_factory.trash_can": "Trash Can",
+
   "gui.recycling_factory.category.scrap": "Scrap Box",
   "gui.recycling_factory.category.scrap.chance": "Chance: %s%%"
 }
