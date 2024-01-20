@@ -1,0 +1,14 @@
+{
+  "item_group.recycling_factory": "Recycling Factory",
+
+  "item.recycling_factory.scrap": "Déchets",
+  "item.recycling_factory.basic_scrap_box": "§eBoîte de Déchets de Base",
+  "item.recycling_factory.advanced_scrap_box": "§cBoîte de Déchets Avancé",
+  "item.recycling_factory.elite_scrap_box": "§bBoîte de Déchets Élite",
+  "item.recycling_factory.ultimate_scrap_box": "§dBoîte de Déchets Ultime",
+
+  "block.recycling_factory.trash_can": "Poubelle",
+
+  "gui.recycling_factory.category.scrap": "Boîte de Déchets",
+  "gui.recycling_factory.category.scrap.chance": "Chances: %s%%"
+}

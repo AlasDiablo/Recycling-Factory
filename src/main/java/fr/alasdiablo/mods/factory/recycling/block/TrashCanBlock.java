@@ -2,6 +2,7 @@ package fr.alasdiablo.mods.factory.recycling.block;
 
 import com.mojang.serialization.MapCodec;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -27,23 +28,64 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.pathfinder.PathComputationType;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
 public class TrashCanBlock extends Block implements WorldlyContainerHolder {
-    public static final int                     MIN_LEVEL = 0;
-    public static final int                     MAX_LEVEL = 7;
-    public static final int                     READY     = 8;
-    public static final IntegerProperty         LEVEL     = RecyclingFactoryBlockStateProperties.LEVEL_TRASH_CAN;
-    public static final MapCodec<TrashCanBlock> CODEC     = simpleCodec(TrashCanBlock::new);
+    public static final  int                     MIN_LEVEL   = 0;
+    public static final  int                     MAX_LEVEL   = 7;
+    public static final  int                     READY       = 8;
+    public static final  IntegerProperty         LEVEL       = RecyclingFactoryBlockStateProperties.LEVEL_TRASH_CAN;
+    public static final  MapCodec<TrashCanBlock> CODEC       = simpleCodec(TrashCanBlock::new);
+    private static final VoxelShape              OUTER_SHAPE = Shapes.block();
+    private static final VoxelShape[]            SHAPES      = Util.make(new VoxelShape[9], voxelShapes -> {
+        for (int i = 0; i < 8; ++i) {
+            voxelShapes[i] = Shapes.join(
+                    OUTER_SHAPE,
+                    Block.box(
+                            2.0,
+                            Math.max(2, 1 + i * 2),
+                            2.0,
+                            14.0,
+                            16.0,
+                            14.0
+                    ),
+                    BooleanOp.ONLY_FIRST
+            );
+        }
+        voxelShapes[8] = voxelShapes[7];
+    });
 
     public TrashCanBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
                 this.stateDefinition.any().setValue(LEVEL, MIN_LEVEL)
         );
+    }
+
+    @Override
+    public @NotNull VoxelShape getShape(
+            @NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext
+    ) {
+        return SHAPES[blockState.getValue(LEVEL)];
+    }
+
+    @Override
+    public @NotNull VoxelShape getInteractionShape(@NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos) {
+        return OUTER_SHAPE;
+    }
+
+    @Override
+    public @NotNull VoxelShape getCollisionShape(
+            @NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull CollisionContext collisionContext
+    ) {
+        return SHAPES[0];
     }
 
     @Override

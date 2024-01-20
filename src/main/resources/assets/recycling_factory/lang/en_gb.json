@@ -1,0 +1,14 @@
+{
+  "item_group.recycling_factory": "Recycling Factory",
+
+  "item.recycling_factory.scrap": "Scrap",
+  "item.recycling_factory.basic_scrap_box": "§eBasic Scrap Box",
+  "item.recycling_factory.advanced_scrap_box": "§cAdvanced Scrap Box",
+  "item.recycling_factory.elite_scrap_box": "§bElite Scrap Box",
+  "item.recycling_factory.ultimate_scrap_box": "§dUltimate Scrap Box",
+
+  "block.recycling_factory.trash_can": "Rubbish Bin",
+
+  "gui.recycling_factory.category.scrap": "Scrap Box",
+  "gui.recycling_factory.category.scrap.chance": "Chance: %s%%"
+}
