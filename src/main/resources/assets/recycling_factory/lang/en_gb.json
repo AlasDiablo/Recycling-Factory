@@ -9,6 +9,9 @@
 
   "block.recycling_factory.trash_can": "Rubbish Bin",
 
-  "gui.recycling_factory.category.scrap": "Scrap Box",
-  "gui.recycling_factory.category.scrap.chance": "Chance: %s%%"
+  "gui.recycling_factory.category.scrap_box.basic": "Basic Scrap Box",
+  "gui.recycling_factory.category.scrap_box.advanced": "Advanced Scrap Box",
+  "gui.recycling_factory.category.scrap_box.elite": "Elite Scrap Box",
+  "gui.recycling_factory.category.scrap_box.ultimate": "Ultimate Scrap Box",
+  "gui.recycling_factory.category.scrap_box.chance": "Chance: %s%%"
 }

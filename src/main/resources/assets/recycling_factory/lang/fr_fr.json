@@ -9,6 +9,9 @@
 
   "block.recycling_factory.trash_can": "Poubelle",
 
-  "gui.recycling_factory.category.scrap": "Boîte de Déchets",
-  "gui.recycling_factory.category.scrap.chance": "Chances: %s%%"
+  "gui.recycling_factory.category.scrap_box.basic": "Boîte de Déchets de Base",
+  "gui.recycling_factory.category.scrap_box.advanced": "Boîte de Déchets Avancé",
+  "gui.recycling_factory.category.scrap_box.elite": "Boîte de Déchets Élite",
+  "gui.recycling_factory.category.scrap_box.ultimate": "Boîte de Déchets Ultime",
+  "gui.recycling_factory.category.scrap_box.chance": "Chances: %s%%"
 }

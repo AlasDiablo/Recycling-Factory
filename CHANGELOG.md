@@ -1,3 +1,8 @@
+### 1.0.0
+
+- The mod is now considered as stable
+- Add JEI compatibility to see drop chance in game
+
 ### 0.0.2
 
 - Add translations for French and UK English
