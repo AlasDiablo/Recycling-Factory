@@ -20,8 +20,18 @@ Each of these Scrap Box has a different loot table with rarer items at each leve
 
 ## Q&A
 
-Q. Can we expect other features to be added in the future?
+Q. Can I use it in my mods pack?<br/>
+A. Yes you can, my mod is "All Rights Reserved" but you can use it however you like,
+just add a link to my mod in your mod pack.
+
+
+Q. Can I re-upload your mods?<br/>
+A. No, you can't re-upload it, you can only re-upload it if you use it in a mods pack with the appropriate credit.
+
+
+Q. Can we expect other features to be added in the future?<br/>
 A. We are planning to add mod integration and also an armour and tools disassembler, but we don't know when it will come.
 
-Q. Fabric or Forge version?
+
+Q. Fabric or Forge version?<br/>
 A. We do not plan to port to any other mods loader than NeoForge.
