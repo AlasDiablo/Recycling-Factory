@@ -1,14 +1,14 @@
 # About Recycling Factory
 
-Recycling Factory is a mod that wants to give a second life to block and item that have no utily or available in big quantity.
-To do this we take inpiration from IC2 Scrap Box and remake it with more loot and with mods integration in the future.
+Recycling Factory is a mod that aims to give a second life to blocks and items that have no use or are available in large quantities.
+We are taking inspiration from the IC2 Scrap Box and redesigning it with more loot and future mod integration.
 
 ## What's in the Mod
 
 For now, we have a block called Trash Can, this block works like a composter, but you can put anything in it.
-and you have a 15% chance of filling a level. and after 7 levels you get a scrap.
+And you have a 15% chance of filling a level, and after 7 levels you get a scrap.
 
-The scrap can be used to make a Basic Scrap Box, when used with a right click or a dispenser it will drop a random item.
+The scrap can be used to make a Basic Scrap Box, which will drop a random item when right-clicked or used from a dispenser.
 
 We also propose 3 other tier to the Scrap Box:
 
@@ -29,9 +29,9 @@ Q. Can I re-upload your mods?<br/>
 A. No, you can't re-upload it, you can only re-upload it if you use it in a mods pack with the appropriate credit.
 
 
-Q. Can we expect other features to be added in the future?<br/>
-A. We are planning to add mod integration and also an armour and tools disassembler, but we don't know when it will come.
+Q. Can we expect more features to be added in the future?<br/>
+A. We are planning to add mod integration and also an armour and tool disassembler, but we don't know when it will come out.
 
 
 Q. Fabric or Forge version?<br/>
-A. We do not plan to port to any other mods loader than NeoForge.
+A. We do not plan to port to any other modloader than NeoForge.
