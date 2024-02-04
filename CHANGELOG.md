@@ -1,3 +1,10 @@
+### 1.1.0
+
+- Requirement change
+  - neoforge >= 20.4.151
+- Update JEI from 17.2.0.41 to 17.3.0.48
+- Update neoforge from 20.4.118 to 20.4.151
+
 ### 1.0.0
 
 - The mod is now considered as stable
