@@ -2,7 +2,6 @@ package fr.alasdiablo.mods.factory.recycling.data.recipe;
 
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryBlocks;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -12,11 +11,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.CompletableFuture;
-
 public class RecyclingFactoryRecipeProvider extends RecipeProvider {
-    public RecyclingFactoryRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-        super(packOutput, lookupProvider);
+    public RecyclingFactoryRecipeProvider(PackOutput packOutput) {
+        super(packOutput);
     }
 
     @Override
