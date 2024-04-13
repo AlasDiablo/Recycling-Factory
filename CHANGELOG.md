@@ -2,6 +2,7 @@
 - Requirement change
   - neoforge updated to 20.4.231
   - minimal version set to 20.4.167
+- Refactor the source code to use UK English
 
 ### 1.1.0
 

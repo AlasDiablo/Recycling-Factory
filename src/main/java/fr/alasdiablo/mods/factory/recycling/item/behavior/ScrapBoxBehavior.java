@@ -42,7 +42,7 @@ public class ScrapBoxBehavior {
 
     /**
      * Function use by internal components of Recycling Factory, please do not use it!
-     * Create four loot table with mathematically spread entry, this is used to get a loot with a percentage of drop.
+     * Create four loot tables with mathematically spread entry, this is used to get a loot with a percentage of drop.
      */
     @Deprecated
     public static void updateChance() {
@@ -85,7 +85,8 @@ public class ScrapBoxBehavior {
             System.out.print(chanceDrop.getRawChance());
             rawTotal.updateAndGet(v -> v + chanceDrop.getRawChance());
             System.out.print("|");
-            System.out.print(df.format(chanceDrop.getCalculatedChance() * 100)); System.out.print("%");
+            System.out.print(df.format(chanceDrop.getCalculatedChance() * 100));
+            System.out.print("%");
             chanceTotal.updateAndGet(v -> v + chanceDrop.getCalculatedChance() * 100);
             System.out.println("|");
         });

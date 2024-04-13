@@ -9,5 +9,9 @@ public class Registries {
 
     public static final String RUBBISH_BIN = "rubbish_bin";
 
-    public static final String RUBBISH_BIN_LEVEL = "rubbish_bin_level";
+    public static final String LEVEL_RUBBISH_BIN = "level_rubbish_bin";
+    public static final String LEVEL_CRUSHER     = "level_crusher";
+    public static final String ITEM_TYPE_CRUSHER = "item_type_crusher";
+    public static final String MIN_DROP_CRUSHER  = "min_drop_crusher";
+    public static final String MAX_DROP_CRUSHER  = "max_drop_crusher";
 }

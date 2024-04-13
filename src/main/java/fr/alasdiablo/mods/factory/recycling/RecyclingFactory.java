@@ -1,6 +1,7 @@
 package fr.alasdiablo.mods.factory.recycling;
 
 import com.mojang.logging.LogUtils;
+import fr.alasdiablo.mods.factory.recycling.api.CrusherItemType;
 import fr.alasdiablo.mods.factory.recycling.data.model.RecyclingFactoryItemModelProvider;
 import fr.alasdiablo.mods.factory.recycling.data.recipe.RecyclingFactoryRecipeProvider;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryBlocks;
@@ -66,6 +67,9 @@ public class RecyclingFactory {
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
+        LOGGER.debug("Register crusher item type");
+        CrusherItemType.register();
+
         LOGGER.debug("Register scrap box loot table");
         ScrapBoxBehavior.registerDrop();
 
@@ -106,9 +110,9 @@ public class RecyclingFactory {
 
     private void onGatherData(@NotNull GatherDataEvent event) {
         LOGGER.debug("Start data generator");
-        final DataGenerator                            generator          = event.getGenerator();
-        final PackOutput                               output             = generator.getPackOutput();
-        final ExistingFileHelper                       existingFileHelper = event.getExistingFileHelper();
+        final DataGenerator      generator          = event.getGenerator();
+        final PackOutput         output             = generator.getPackOutput();
+        final ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         LOGGER.debug("Add Item Model Provider");
         generator.addProvider(event.includeClient(), new RecyclingFactoryItemModelProvider(output, existingFileHelper));
