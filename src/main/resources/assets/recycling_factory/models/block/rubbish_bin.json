@@ -1,11 +1,11 @@
 {
     "parent": "minecraft:block/block",
     "textures": {
-        "particle": "recycling_factory:block/trash_can_side",
-        "top": "recycling_factory:block/trash_can_top",
-        "bottom": "recycling_factory:block/trash_can_bottom",
-        "side": "recycling_factory:block/trash_can_side",
-        "inside": "recycling_factory:block/trash_can_bottom"
+        "particle": "recycling_factory:block/rubbish_bin_side",
+        "top": "recycling_factory:block/rubbish_bin_top",
+        "bottom": "recycling_factory:block/rubbish_bin_bottom",
+        "side": "recycling_factory:block/rubbish_bin_side",
+        "inside": "recycling_factory:block/rubbish_bin_bottom"
     },
     "elements": [
         {   "from": [ 0, 0, 0 ],

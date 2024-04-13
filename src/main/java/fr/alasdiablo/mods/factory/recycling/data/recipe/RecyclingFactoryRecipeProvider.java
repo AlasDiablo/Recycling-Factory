@@ -18,7 +18,7 @@ public class RecyclingFactoryRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(@NotNull RecipeOutput recipeOutput) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RecyclingFactoryBlocks.TRASH_CAN.asItem())
+        ShapedRecipeBuilder.shaped(RecipeCategory.DECORATIONS, RecyclingFactoryBlocks.RUBBISH_BIN.asItem())
                 .define('I', Items.IRON_INGOT)
                 .define('C', Blocks.COMPOSTER)
                 .pattern("I I")

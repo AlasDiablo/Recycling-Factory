@@ -1,5 +1,6 @@
-package fr.alasdiablo.mods.factory.recycling.block;
+package fr.alasdiablo.mods.factory.recycling.block.rubbish;
 
+import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
@@ -11,14 +12,14 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class TrashCanInputContainer extends SimpleContainer implements WorldlyContainer {
+public class RubbishBinOutputContainer extends SimpleContainer implements WorldlyContainer {
     private final BlockState    blockState;
     private final LevelAccessor levelAccessor;
     private final BlockPos      blockPos;
     private       boolean       changed;
 
-    public TrashCanInputContainer(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos) {
-        super(1);
+    public RubbishBinOutputContainer(BlockState blockState, LevelAccessor levelAccessor, BlockPos blockPos, ItemStack itemStack) {
+        super(itemStack);
         this.blockState    = blockState;
         this.levelAccessor = levelAccessor;
         this.blockPos      = blockPos;
@@ -31,7 +32,7 @@ public class TrashCanInputContainer extends SimpleContainer implements WorldlyCo
 
     @Override
     public int @NotNull [] getSlotsForFace(@NotNull Direction direction) {
-        if (direction == Direction.UP) {
+        if (direction == Direction.DOWN) {
             return new int[]{ 0 };
         }
         return new int[0];
@@ -39,25 +40,17 @@ public class TrashCanInputContainer extends SimpleContainer implements WorldlyCo
 
     @Override
     public boolean canPlaceItemThroughFace(int p_52028_, @NotNull ItemStack itemStack, @Nullable Direction direction) {
-        if (itemStack.isEmpty()) {
-            return false;
-        }
-        return !this.changed && direction == Direction.UP;
-    }
-
-    @Override
-    public boolean canTakeItemThroughFace(int p_19239_, @NotNull ItemStack itemStack, @NotNull Direction direction) {
         return false;
     }
 
     @Override
+    public boolean canTakeItemThroughFace(int p_19239_, @NotNull ItemStack itemStack, @NotNull Direction direction) {
+        return !this.changed && direction == Direction.DOWN && itemStack.is(RecyclingFactoryItems.SCRAP.asItem());
+    }
+
+    @Override
     public void setChanged() {
-        ItemStack itemstack = this.getItem(0);
-        if (!itemstack.isEmpty()) {
-            this.changed = true;
-            BlockState blockstate = TrashCanBlock.addItem(null, this.blockState, this.levelAccessor, this.blockPos, itemstack);
-            this.levelAccessor.levelEvent(1500, this.blockPos, blockstate != this.blockState ? 1 : 0);
-            this.removeItemNoUpdate(0);
-        }
+        RubbishBinBlock.empty(null, this.blockState, this.levelAccessor, this.blockPos);
+        this.changed = true;
     }
 }

@@ -1,6 +1,7 @@
-package fr.alasdiablo.mods.factory.recycling.block;
+package fr.alasdiablo.mods.factory.recycling.block.rubbish;
 
 import com.mojang.serialization.MapCodec;
+import fr.alasdiablo.mods.factory.recycling.block.RecyclingFactoryBlockStateProperties;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -37,14 +38,14 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 @SuppressWarnings("deprecation")
-public class TrashCanBlock extends Block implements WorldlyContainerHolder {
-    public static final  int                     MIN_LEVEL   = 0;
-    public static final  int                     MAX_LEVEL   = 7;
-    public static final  int                     READY       = 8;
-    public static final  IntegerProperty         LEVEL       = RecyclingFactoryBlockStateProperties.LEVEL_TRASH_CAN;
-    public static final  MapCodec<TrashCanBlock> CODEC       = simpleCodec(TrashCanBlock::new);
-    private static final VoxelShape              OUTER_SHAPE = Shapes.block();
-    private static final VoxelShape[]            SHAPES      = Util.make(new VoxelShape[9], voxelShapes -> {
+public class RubbishBinBlock extends Block implements WorldlyContainerHolder {
+    public static final  int                       MIN_LEVEL   = 0;
+    public static final  int                       MAX_LEVEL   = 7;
+    public static final  int                       READY       = 8;
+    public static final  IntegerProperty           LEVEL       = RecyclingFactoryBlockStateProperties.LEVEL_RUBBISH_BIN;
+    public static final  MapCodec<RubbishBinBlock> CODEC       = simpleCodec(RubbishBinBlock::new);
+    private static final VoxelShape                OUTER_SHAPE = Shapes.block();
+    private static final VoxelShape[]              SHAPES      = Util.make(new VoxelShape[9], voxelShapes -> {
         for (int i = 0; i < 8; ++i) {
             voxelShapes[i] = Shapes.join(
                     OUTER_SHAPE,
@@ -62,7 +63,7 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
         voxelShapes[8] = voxelShapes[7];
     });
 
-    public TrashCanBlock(Properties properties) {
+    public RubbishBinBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
                 this.stateDefinition.any().setValue(LEVEL, MIN_LEVEL)
@@ -122,7 +123,7 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
         ItemStack itemstack = player.getItemInHand(interactionHand);
         if (i < READY && !itemstack.isEmpty()) {
             if (i < MAX_LEVEL && !level.isClientSide) {
-                BlockState blockstate = TrashCanBlock.addItem(player, blockState, level, pos, itemstack);
+                BlockState blockstate = RubbishBinBlock.addItem(player, blockState, level, pos, itemstack);
                 level.levelEvent(1500, pos, blockState != blockstate ? 1 : 0);
                 player.awardStat(Stats.ITEM_USED.get(itemstack.getItem()));
                 if (!player.getAbilities().instabuild) {
@@ -133,7 +134,7 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         if (i == READY) {
-            TrashCanBlock.extractProduce(player, blockState, level, pos);
+            RubbishBinBlock.extractProduce(player, blockState, level, pos);
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;
@@ -147,7 +148,7 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
             level.addFreshEntity(itementity);
         }
 
-        TrashCanBlock.empty(entity, blockState, level, blockPos);
+        RubbishBinBlock.empty(entity, blockState, level, blockPos);
         level.playSound(null, blockPos, SoundEvents.COMPOSTER_EMPTY, SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
@@ -201,7 +202,7 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
+    protected void createBlockStateDefinition(@NotNull StateDefinition.Builder<Block, BlockState> blockStateBuilder) {
         blockStateBuilder.add(LEVEL);
     }
 
@@ -216,11 +217,11 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
     public @NotNull WorldlyContainer getContainer(@NotNull BlockState blockState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos) {
         int i = blockState.getValue(LEVEL);
         if (i == READY) {
-            return new TrashCanOutputContainer(blockState, levelAccessor, blockPos, new ItemStack(RecyclingFactoryItems.SCRAP.asItem()));
+            return new RubbishBinOutputContainer(blockState, levelAccessor, blockPos, new ItemStack(RecyclingFactoryItems.SCRAP.asItem()));
         }
         if (i < MAX_LEVEL) {
-            return new TrashCanInputContainer(blockState, levelAccessor, blockPos);
+            return new RubbishBinInputContainer(blockState, levelAccessor, blockPos);
         }
-        return new TrashCanEmptyContainer();
+        return new RubbishBinEmptyContainer();
     }
 }

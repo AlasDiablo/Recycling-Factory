@@ -1,7 +1,9 @@
 package fr.alasdiablo.mods.factory.recycling.block;
 
+import fr.alasdiablo.mods.factory.recycling.Registries;
+import fr.alasdiablo.mods.factory.recycling.block.rubbish.RubbishBinBlock;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class RecyclingFactoryBlockStateProperties {
-    public static final IntegerProperty LEVEL_TRASH_CAN = IntegerProperty.create("level", 0, 8);
+    public static final IntegerProperty LEVEL_RUBBISH_BIN = IntegerProperty.create(Registries.RUBBISH_BIN_LEVEL, RubbishBinBlock.MIN_LEVEL, RubbishBinBlock.READY);
 }

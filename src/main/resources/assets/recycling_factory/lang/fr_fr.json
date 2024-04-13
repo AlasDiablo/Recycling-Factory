@@ -7,7 +7,7 @@
   "item.recycling_factory.elite_scrap_box": "§bBoîte de Déchets Élite",
   "item.recycling_factory.ultimate_scrap_box": "§dBoîte de Déchets Ultime",
 
-  "block.recycling_factory.trash_can": "Poubelle",
+  "block.recycling_factory.rubbish_bin": "Poubelle",
 
   "gui.recycling_factory.category.scrap_box.basic": "Boîte de Déchets de Base",
   "gui.recycling_factory.category.scrap_box.advanced": "Boîte de Déchets Avancé",

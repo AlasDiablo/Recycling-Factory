@@ -1,4 +1,4 @@
-package fr.alasdiablo.mods.factory.recycling.block;
+package fr.alasdiablo.mods.factory.recycling.block.rubbish;
 
 import net.minecraft.core.Direction;
 import net.minecraft.world.SimpleContainer;
@@ -9,8 +9,8 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-public class TrashCanEmptyContainer extends SimpleContainer implements WorldlyContainer {
-    public TrashCanEmptyContainer() {
+public class RubbishBinEmptyContainer extends SimpleContainer implements WorldlyContainer {
+    public RubbishBinEmptyContainer() {
         super(0);
     }
 

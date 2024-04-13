@@ -7,6 +7,7 @@ public class Registries {
     public static final String ELITE_SCRAP_BOX    = "elite_scrap_box";
     public static final String ULTIMATE_SCRAP_BOX = "ultimate_scrap_box";
 
-    public static final String TRASH_CAN = "trash_can";
+    public static final String RUBBISH_BIN = "rubbish_bin";
 
+    public static final String RUBBISH_BIN_LEVEL = "rubbish_bin_level";
 }

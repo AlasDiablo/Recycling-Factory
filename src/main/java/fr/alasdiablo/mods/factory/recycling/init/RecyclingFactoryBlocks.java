@@ -2,7 +2,7 @@ package fr.alasdiablo.mods.factory.recycling.init;
 
 import fr.alasdiablo.mods.factory.recycling.RecyclingFactory;
 import fr.alasdiablo.mods.factory.recycling.Registries;
-import fr.alasdiablo.mods.factory.recycling.block.TrashCanBlock;
+import fr.alasdiablo.mods.factory.recycling.block.rubbish.RubbishBinBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -19,8 +19,8 @@ import java.util.function.Supplier;
 public class RecyclingFactoryBlocks {
     public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(RecyclingFactory.MODID);
 
-    public static final DeferredBlock<Block> TRASH_CAN = register(
-            Registries.TRASH_CAN, () -> new TrashCanBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(0.6f))
+    public static final DeferredBlock<Block> RUBBISH_BIN = register(
+            Registries.RUBBISH_BIN, () -> new RubbishBinBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(0.6f))
     );
 
     private static @NotNull DeferredBlock<Block> register(String name, Supplier<Block> block) {
@@ -35,7 +35,7 @@ public class RecyclingFactoryBlocks {
 
     public static void onBuildCreativeTabContents(@NotNull BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == RecyclingFactory.RECYCLING_FACTORY_TAB.getKey()) {
-            event.accept(TRASH_CAN);
+            event.accept(RUBBISH_BIN);
         }
     }
 }

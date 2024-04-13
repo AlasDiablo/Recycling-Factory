@@ -2,12 +2,12 @@
   "multipart": [
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can"
+        "model": "recycling_factory:block/rubbish_bin"
       }
     },
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can_contents1"
+        "model": "recycling_factory:block/rubbish_bin_contents1"
       },
       "when": {
         "level": "1"
@@ -15,7 +15,7 @@
     },
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can_contents2"
+        "model": "recycling_factory:block/rubbish_bin_contents2"
       },
       "when": {
         "level": "2"
@@ -23,7 +23,7 @@
     },
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can_contents3"
+        "model": "recycling_factory:block/rubbish_bin_contents3"
       },
       "when": {
         "level": "3"
@@ -31,7 +31,7 @@
     },
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can_contents4"
+        "model": "recycling_factory:block/rubbish_bin_contents4"
       },
       "when": {
         "level": "4"
@@ -39,7 +39,7 @@
     },
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can_contents5"
+        "model": "recycling_factory:block/rubbish_bin_contents5"
       },
       "when": {
         "level": "5"
@@ -47,7 +47,7 @@
     },
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can_contents6"
+        "model": "recycling_factory:block/rubbish_bin_contents6"
       },
       "when": {
         "level": "6"
@@ -55,7 +55,7 @@
     },
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can_contents7"
+        "model": "recycling_factory:block/rubbish_bin_contents7"
       },
       "when": {
         "level": "7"
@@ -63,7 +63,7 @@
     },
     {
       "apply": {
-        "model": "recycling_factory:block/trash_can_contents_ready"
+        "model": "recycling_factory:block/rubbish_bin_contents_ready"
       },
       "when": {
         "level": "8"
