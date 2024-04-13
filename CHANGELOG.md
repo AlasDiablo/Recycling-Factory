@@ -1,3 +1,8 @@
+### 2.0.0
+- Requirement change
+  - neoforge updated to 20.4.231
+  - minimal version set to 20.4.167
+
 ### 1.1.0
 
 - Requirement change
