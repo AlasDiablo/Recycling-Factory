@@ -45,7 +45,7 @@ public class TrashCanOutputContainer extends SimpleContainer implements WorldlyC
 
     @Override
     public boolean canTakeItemThroughFace(int p_19239_, @NotNull ItemStack itemStack, @NotNull Direction direction) {
-        return !this.changed && direction == Direction.DOWN && itemStack.is(RecyclingFactoryItems.SCRAP.asItem());
+        return !this.changed && direction == Direction.DOWN && itemStack.is(RecyclingFactoryItems.SCRAP.get());
     }
 
     @Override

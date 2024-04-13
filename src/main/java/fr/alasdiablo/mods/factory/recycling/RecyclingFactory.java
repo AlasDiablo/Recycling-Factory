@@ -13,16 +13,17 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.data.event.GatherDataEvent;
-import net.neoforged.neoforge.event.level.LevelEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.data.event.GatherDataEvent;
+import net.minecraftforge.event.level.LevelEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 
@@ -34,16 +35,18 @@ public class RecyclingFactory {
 
     private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> RECYCLING_FACTORY_TAB = CREATIVE_MODE_TABS.register(
+    public static final RegistryObject<CreativeModeTab> RECYCLING_FACTORY_TAB = CREATIVE_MODE_TABS.register(
             "recycling_factory_tab", () -> CreativeModeTab.builder()
                     .title(Component.translatable("item_group." + MODID))
-                    .icon(RecyclingFactoryItems.SCRAP::toStack)
+                    .icon(() -> RecyclingFactoryItems.SCRAP.get().getDefaultInstance())
                     .build()
     );
 
-    public RecyclingFactory(@NotNull IEventBus modEventBus) {
+    public RecyclingFactory() {
+        IEventBus modEventBus = MinecraftForge.EVENT_BUS;
+
         LOGGER.debug("Add world loading listener");
-        NeoForge.EVENT_BUS.addListener(this::onWorldLoad);
+        modEventBus.addListener(this::onWorldLoad);
 
         LOGGER.debug("Add common setup listener");
         modEventBus.addListener(this::onCommonSetup);
@@ -71,25 +74,25 @@ public class RecyclingFactory {
 
         LOGGER.debug("Register basic scrap box dispenser behavior");
         DispenserBlock.registerBehavior(
-                RecyclingFactoryItems.BASIC_SCRAP_BOX,
+                RecyclingFactoryItems.BASIC_SCRAP_BOX.get(),
                 new ScrapBoxUseBehavior(ScrapBoxResultTier.BASIC)
         );
 
         LOGGER.debug("Register advanced scrap box dispenser behavior");
         DispenserBlock.registerBehavior(
-                RecyclingFactoryItems.ADVANCED_SCRAP_BOX,
+                RecyclingFactoryItems.ADVANCED_SCRAP_BOX.get(),
                 new ScrapBoxUseBehavior(ScrapBoxResultTier.ADVANCED)
         );
 
         LOGGER.debug("Register elite scrap box dispenser behavior");
         DispenserBlock.registerBehavior(
-                RecyclingFactoryItems.ELITE_SCRAP_BOX,
+                RecyclingFactoryItems.ELITE_SCRAP_BOX.get(),
                 new ScrapBoxUseBehavior(ScrapBoxResultTier.ELITE)
         );
 
         LOGGER.debug("Register ultimate scrap box dispenser behavior");
         DispenserBlock.registerBehavior(
-                RecyclingFactoryItems.ULTIMATE_SCRAP_BOX,
+                RecyclingFactoryItems.ULTIMATE_SCRAP_BOX.get(),
                 new ScrapBoxUseBehavior(ScrapBoxResultTier.ULTIMATE)
         );
     }
@@ -107,8 +110,8 @@ public class RecyclingFactory {
     private void onGatherData(@NotNull GatherDataEvent event) {
         LOGGER.debug("Start data generator");
         final DataGenerator                            generator          = event.getGenerator();
-        final PackOutput                               output             = generator.getPackOutput();
-        final ExistingFileHelper                       existingFileHelper = event.getExistingFileHelper();
+        final PackOutput         output             = generator.getPackOutput();
+        final ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
         LOGGER.debug("Add Item Model Provider");
         generator.addProvider(event.includeClient(), new RecyclingFactoryItemModelProvider(output, existingFileHelper));

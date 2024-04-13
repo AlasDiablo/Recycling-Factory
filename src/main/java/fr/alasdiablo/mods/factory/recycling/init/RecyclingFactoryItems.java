@@ -5,24 +5,25 @@ import fr.alasdiablo.mods.factory.recycling.Registries;
 import fr.alasdiablo.mods.factory.recycling.item.ScrapBox;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxResultTier;
 import net.minecraft.world.item.Item;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 public class RecyclingFactoryItems {
-    static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(RecyclingFactory.MODID);
+    static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, RecyclingFactory.MODID);
 
-    public static final DeferredItem<Item> SCRAP = ITEMS.registerSimpleItem(Registries.SCRAP);
+    public static final RegistryObject<Item> SCRAP = ITEMS.register(Registries.SCRAP, () -> new Item(new Item.Properties()));
 
-    public static final DeferredItem<Item> BASIC_SCRAP_BOX    = ITEMS.register(
+    public static final RegistryObject<Item> BASIC_SCRAP_BOX    = ITEMS.register(
             Registries.BASIC_SCRAP_BOX, () -> new ScrapBox(ScrapBoxResultTier.BASIC, new Item.Properties()));
-    public static final DeferredItem<Item> ADVANCED_SCRAP_BOX = ITEMS.register(
+    public static final RegistryObject<Item> ADVANCED_SCRAP_BOX = ITEMS.register(
             Registries.ADVANCED_SCRAP_BOX, () -> new ScrapBox(ScrapBoxResultTier.ADVANCED, new Item.Properties()));
-    public static final DeferredItem<Item> ELITE_SCRAP_BOX    = ITEMS.register(
+    public static final RegistryObject<Item> ELITE_SCRAP_BOX    = ITEMS.register(
             Registries.ELITE_SCRAP_BOX, () -> new ScrapBox(ScrapBoxResultTier.ELITE, new Item.Properties()));
-    public static final DeferredItem<Item> ULTIMATE_SCRAP_BOX = ITEMS.register(
+    public static final RegistryObject<Item> ULTIMATE_SCRAP_BOX = ITEMS.register(
             Registries.ULTIMATE_SCRAP_BOX, () -> new ScrapBox(ScrapBoxResultTier.ULTIMATE, new Item.Properties()));
 
     public static void register(IEventBus bus) {

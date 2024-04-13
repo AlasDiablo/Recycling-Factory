@@ -100,17 +100,6 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
         if (blockState.getValue(LEVEL) == MAX_LEVEL) {
             level.scheduleTick(blockPos, blockState.getBlock(), 20);
         }
-        // Neo: Invalidate composter capabilities when a composter is added
-        if (!previousBlockState.is(this)) level.invalidateCapabilities(blockPos);
-    }
-
-    @Override
-    public void onRemove(
-            @NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState previousBlockState, boolean p_60519_
-    ) {
-        super.onRemove(blockState, level, pos, previousBlockState, p_60519_);
-        // Neo: Invalidate composter capabilities when a composter is removed
-        if (!blockState.is(previousBlockState.getBlock())) level.invalidateCapabilities(pos);
     }
 
     @Override
@@ -142,7 +131,7 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
     public static void extractProduce(Entity entity, BlockState blockState, @NotNull Level level, BlockPos blockPos) {
         if (!level.isClientSide) {
             Vec3       vec3       = Vec3.atLowerCornerWithOffset(blockPos, 0.5, 1.01, 0.5).offsetRandom(level.random, 0.7F);
-            ItemEntity itementity = new ItemEntity(level, vec3.x(), vec3.y(), vec3.z(), new ItemStack(RecyclingFactoryItems.SCRAP.asItem()));
+            ItemEntity itementity = new ItemEntity(level, vec3.x(), vec3.y(), vec3.z(), new ItemStack(RecyclingFactoryItems.SCRAP.get()));
             itementity.setDefaultPickUpDelay();
             level.addFreshEntity(itementity);
         }
@@ -216,7 +205,7 @@ public class TrashCanBlock extends Block implements WorldlyContainerHolder {
     public @NotNull WorldlyContainer getContainer(@NotNull BlockState blockState, @NotNull LevelAccessor levelAccessor, @NotNull BlockPos blockPos) {
         int i = blockState.getValue(LEVEL);
         if (i == READY) {
-            return new TrashCanOutputContainer(blockState, levelAccessor, blockPos, new ItemStack(RecyclingFactoryItems.SCRAP.asItem()));
+            return new TrashCanOutputContainer(blockState, levelAccessor, blockPos, new ItemStack(RecyclingFactoryItems.SCRAP.get()));
         }
         if (i < MAX_LEVEL) {
             return new TrashCanInputContainer(blockState, levelAccessor, blockPos);

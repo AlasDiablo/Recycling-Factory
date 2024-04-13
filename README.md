@@ -1,5 +1,8 @@
 # About Recycling Factory
 
+WARNING: This branch is an attempt to port the mod to forge but with a low priority.
+Except bug and other issues
+
 Recycling Factory is a mod that aims to give a second life to blocks and items that have no use or are available in large quantities.
 We are taking inspiration from the IC2 Scrap Box and redesigning it with more loot and future mod integration.
 

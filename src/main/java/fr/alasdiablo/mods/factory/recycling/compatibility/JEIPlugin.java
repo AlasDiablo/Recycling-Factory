@@ -27,28 +27,28 @@ public class JEIPlugin implements IModPlugin {
     public void registerCategories(@NotNull IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new ScrapBoxCategory(
                 RecipeTypes.BASIC_SCRAP_BOX,
-                RecyclingFactoryItems.BASIC_SCRAP_BOX,
+                RecyclingFactoryItems.BASIC_SCRAP_BOX.get(),
                 ScrapBoxResultTier.BASIC,
                 registration.getJeiHelpers().getGuiHelper()
         ));
 
         registration.addRecipeCategories(new ScrapBoxCategory(
                 RecipeTypes.ADVANCED_SCRAP_BOX,
-                RecyclingFactoryItems.ADVANCED_SCRAP_BOX,
+                RecyclingFactoryItems.ADVANCED_SCRAP_BOX.get(),
                 ScrapBoxResultTier.ADVANCED,
                 registration.getJeiHelpers().getGuiHelper()
         ));
 
         registration.addRecipeCategories(new ScrapBoxCategory(
                 RecipeTypes.ELITE_SCRAP_BOX,
-                RecyclingFactoryItems.ELITE_SCRAP_BOX,
+                RecyclingFactoryItems.ELITE_SCRAP_BOX.get(),
                 ScrapBoxResultTier.ELITE,
                 registration.getJeiHelpers().getGuiHelper()
         ));
 
         registration.addRecipeCategories(new ScrapBoxCategory(
                 RecipeTypes.ULTIMATE_SCRAP_BOX,
-                RecyclingFactoryItems.ULTIMATE_SCRAP_BOX,
+                RecyclingFactoryItems.ULTIMATE_SCRAP_BOX.get(),
                 ScrapBoxResultTier.ULTIMATE,
                 registration.getJeiHelpers().getGuiHelper()
         ));
@@ -93,25 +93,25 @@ public class JEIPlugin implements IModPlugin {
     public void registerRecipeCatalysts(@NotNull IRecipeCatalystRegistration registration) {
         registration.addRecipeCatalyst(new ItemStack(Blocks.DISPENSER), RecipeTypes.BASIC_SCRAP_BOX);
         registration.addRecipeCatalyst(
-                new ItemStack(RecyclingFactoryItems.BASIC_SCRAP_BOX.asItem()),
+                new ItemStack(RecyclingFactoryItems.BASIC_SCRAP_BOX.get()),
                 RecipeTypes.BASIC_SCRAP_BOX
         );
 
         registration.addRecipeCatalyst(new ItemStack(Blocks.DISPENSER), RecipeTypes.ADVANCED_SCRAP_BOX);
         registration.addRecipeCatalyst(
-                new ItemStack(RecyclingFactoryItems.ADVANCED_SCRAP_BOX.asItem()),
+                new ItemStack(RecyclingFactoryItems.ADVANCED_SCRAP_BOX.get()),
                 RecipeTypes.ADVANCED_SCRAP_BOX
         );
 
         registration.addRecipeCatalyst(new ItemStack(Blocks.DISPENSER), RecipeTypes.ELITE_SCRAP_BOX);
         registration.addRecipeCatalyst(
-                new ItemStack(RecyclingFactoryItems.ELITE_SCRAP_BOX.asItem()),
+                new ItemStack(RecyclingFactoryItems.ELITE_SCRAP_BOX.get()),
                 RecipeTypes.ELITE_SCRAP_BOX
         );
 
         registration.addRecipeCatalyst(new ItemStack(Blocks.DISPENSER), RecipeTypes.ULTIMATE_SCRAP_BOX);
         registration.addRecipeCatalyst(
-                new ItemStack(RecyclingFactoryItems.ULTIMATE_SCRAP_BOX.asItem()),
+                new ItemStack(RecyclingFactoryItems.ULTIMATE_SCRAP_BOX.get()),
                 RecipeTypes.ULTIMATE_SCRAP_BOX
         );
     }

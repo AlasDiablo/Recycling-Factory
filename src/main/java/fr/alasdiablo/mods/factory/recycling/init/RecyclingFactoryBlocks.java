@@ -8,23 +8,24 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
 
 public class RecyclingFactoryBlocks {
-    public static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(RecyclingFactory.MODID);
+    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, RecyclingFactory.MODID);
 
-    public static final DeferredBlock<Block> TRASH_CAN = register(
+    public static final RegistryObject<Block> TRASH_CAN = register(
             Registries.TRASH_CAN, () -> new TrashCanBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(0.6f))
     );
 
-    private static @NotNull DeferredBlock<Block> register(String name, Supplier<Block> block) {
-        DeferredBlock<Block> blockRegistry = BLOCKS.register(name, block);
+    private static @NotNull RegistryObject<Block> register(String name, Supplier<Block> block) {
+        RegistryObject<Block> blockRegistry = BLOCKS.register(name, block);
         RecyclingFactoryItems.ITEMS.register(name, () -> new BlockItem(blockRegistry.get(), new Item.Properties()));
         return blockRegistry;
     }
