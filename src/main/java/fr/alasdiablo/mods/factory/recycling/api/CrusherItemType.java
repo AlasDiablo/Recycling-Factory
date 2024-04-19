@@ -6,19 +6,23 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class CrusherItemType {
     public record ItemType(Integer itemTypeId, Item drop) {}
+
     public record ItemMap(String itemType, Integer maxAmount) {}
 
-    private static final AtomicInteger INDEX = new AtomicInteger(0);
+    private static final AtomicInteger         INDEX     = new AtomicInteger(0);
     private static final Map<String, ItemType> ITEM_TYPE = new HashMap<>();
-    private static final Map<Item, ItemMap> ITEM_MAP     = new HashMap<>();
+    private static final Map<Item, ItemMap>    ITEM_MAP  = new HashMap<>();
 
     /**
      * Add a new item type
+     *
      * @param itemType name of the item type
      */
     public static void addItemType(String itemType, Item itemDrop) throws IndexOutOfBoundsException, IllegalStateException {

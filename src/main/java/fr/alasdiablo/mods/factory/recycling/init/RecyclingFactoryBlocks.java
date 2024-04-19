@@ -2,11 +2,15 @@ package fr.alasdiablo.mods.factory.recycling.init;
 
 import fr.alasdiablo.mods.factory.recycling.RecyclingFactory;
 import fr.alasdiablo.mods.factory.recycling.Registries;
+import fr.alasdiablo.mods.factory.recycling.block.crusher.StirlingRecyclingCrusher;
 import fr.alasdiablo.mods.factory.recycling.block.rubbish.RubbishBinBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -21,6 +25,20 @@ public class RecyclingFactoryBlocks {
 
     public static final DeferredBlock<Block> RUBBISH_BIN = register(
             Registries.RUBBISH_BIN, () -> new RubbishBinBlock(BlockBehaviour.Properties.of().mapColor(MapColor.METAL).strength(0.6f))
+    );
+
+    public static final DeferredBlock<Block> STIRLING_RECYCLING_CRUSHER = register(
+            Registries.STIRLING_RECYCLING_CRUSHER,
+            () -> new StirlingRecyclingCrusher(
+                    BlockBehaviour.Properties.of()
+                            .mapColor(MapColor.STONE)
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .requiresCorrectToolForDrops()
+                            .strength(3.5F)
+                            .lightLevel(
+                                    value -> value.getValue(BlockStateProperties.LIT) ? 13 : 0
+                            )
+            )
     );
 
     private static @NotNull DeferredBlock<Block> register(String name, Supplier<Block> block) {
