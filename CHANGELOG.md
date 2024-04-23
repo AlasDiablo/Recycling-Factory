@@ -1,6 +1,10 @@
 ### 2.0.0
 - Refactor the source code to use UK English
 
+### 1.2.0
+- Add a config system to allow adding and removing entry in the scrap box loot table
+- Now required DiaboloLib
+
 ### 1.1.1
 - Requirement change and fix
   - neoforge updated to 20.4.231

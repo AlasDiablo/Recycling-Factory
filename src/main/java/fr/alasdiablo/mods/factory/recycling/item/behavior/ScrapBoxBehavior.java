@@ -1,7 +1,13 @@
 package fr.alasdiablo.mods.factory.recycling.item.behavior;
 
 import com.mojang.datafixers.util.Pair;
+import fr.alasdiablo.mods.factory.recycling.RecyclingFactory;
 import fr.alasdiablo.mods.factory.recycling.api.ChanceDrop;
+import fr.alasdiablo.mods.factory.recycling.config.RecyclingFactoryConfig;
+import fr.alasdiablo.mods.factory.recycling.config.ScrapBoxConfig;
+import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -136,6 +142,45 @@ public class ScrapBoxBehavior {
      */
     public static void addDrop(ScrapBoxResultType type, ScrapBoxResultTier tier, Item item, float rawChance) {
         RAW_DROPS.add(Pair.of(Pair.of(type, tier), ChanceDrop.of(item, rawChance)));
+    }
+
+    /**
+     * Function use by internal components of Recycling Factory, please do not use it!
+     * Register the initial loot table of each scrap box
+     */
+    @Deprecated
+    public static void registerDrop() {
+        registerBasic();
+        registerAdvanced();
+        registerElite();
+        registerUltimate();
+
+        registerCustom(RecyclingFactoryConfig.BASIC_SCRAP_BOX, ScrapBoxResultTier.BASIC);
+        registerCustom(RecyclingFactoryConfig.ADVANCED_SCRAP_BOX, ScrapBoxResultTier.ADVANCED);
+        registerCustom(RecyclingFactoryConfig.ELITE_SCRAP_BOX, ScrapBoxResultTier.ELITE);
+        registerCustom(RecyclingFactoryConfig.ULTIMATE_SCRAP_BOX, ScrapBoxResultTier.ULTIMATE);
+    }
+
+    private static void registerCustom(@NotNull ScrapBoxConfig config, ScrapBoxResultTier tier) {
+        Registry<Item> itemRegistry = RecyclingFactoryItems.getRegistry();
+
+        config.getRemoveEntries().forEach(removeEntry -> {
+            Item item = itemRegistry.get(new ResourceLocation(removeEntry.id()));
+            ScrapBoxResultType type = removeEntry.type().equals("tool") ? ScrapBoxResultType.TOOL : ScrapBoxResultType.NORMAL;
+
+            RAW_DROPS.stream().filter(pairChanceDropPair -> {
+                ScrapBoxResultType dropType = pairChanceDropPair.getFirst().getFirst();
+                Item dropItem = pairChanceDropPair.getSecond().getDrop();
+                return dropType == type && dropItem == item;
+            }).findAny().ifPresent(RAW_DROPS::remove);
+        });
+
+        config.getAddEntries().forEach(addEntry -> {
+            Item item = itemRegistry.get(new ResourceLocation(addEntry.id()));
+            ScrapBoxResultType type = addEntry.type().equals("tool") ? ScrapBoxResultType.TOOL : ScrapBoxResultType.NORMAL;
+            float chance = addEntry.chance();
+            addDrop(type, tier, item, chance);
+        });
     }
 
     private static void registerBasic() {
@@ -368,17 +413,5 @@ public class ScrapBoxBehavior {
         addToolDrop(ScrapBoxResultTier.ULTIMATE, Items.NETHERITE_HOE, 0.2f);
         addToolDrop(ScrapBoxResultTier.ULTIMATE, Items.NETHERITE_SHOVEL, 0.2f);
         addToolDrop(ScrapBoxResultTier.ULTIMATE, Items.NETHERITE_SWORD, 0.2f);
-    }
-
-    /**
-     * Function use by internal components of Recycling Factory, please do not use it!
-     * Register the initial loot table of each scrap box
-     */
-    @Deprecated
-    public static void registerDrop() {
-        registerBasic();
-        registerAdvanced();
-        registerElite();
-        registerUltimate();
     }
 }

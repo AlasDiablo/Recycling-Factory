@@ -4,6 +4,7 @@ import fr.alasdiablo.mods.factory.recycling.RecyclingFactory;
 import fr.alasdiablo.mods.factory.recycling.Registries;
 import fr.alasdiablo.mods.factory.recycling.item.ScrapBox;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxResultTier;
+import net.minecraft.core.Registry;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -27,6 +28,10 @@ public class RecyclingFactoryItems {
 
     public static void register(IEventBus bus) {
         ITEMS.register(bus);
+    }
+
+    public static Registry<Item> getRegistry() {
+        return ITEMS.getRegistry().get();
     }
 
     public static void onBuildCreativeTabContents(@NotNull BuildCreativeModeTabContentsEvent event) {

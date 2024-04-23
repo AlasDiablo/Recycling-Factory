@@ -1,6 +1,7 @@
 package fr.alasdiablo.mods.factory.recycling;
 
 import com.mojang.logging.LogUtils;
+import fr.alasdiablo.mods.factory.recycling.config.RecyclingFactoryConfig;
 import fr.alasdiablo.mods.factory.recycling.api.CrusherItemType;
 import fr.alasdiablo.mods.factory.recycling.data.model.RecyclingFactoryItemModelProvider;
 import fr.alasdiablo.mods.factory.recycling.data.recipe.RecyclingFactoryRecipeProvider;
@@ -31,7 +32,7 @@ import org.slf4j.Logger;
 @Mod(RecyclingFactory.MODID)
 public class RecyclingFactory {
     public static final  String MODID  = "recycling_factory";
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
 
@@ -43,6 +44,9 @@ public class RecyclingFactory {
     );
 
     public RecyclingFactory(@NotNull IEventBus modEventBus) {
+        LOGGER.debug("Initializing configuration files");
+        RecyclingFactoryConfig.init();
+
         LOGGER.debug("Add world loading listener");
         NeoForge.EVENT_BUS.addListener(this::onWorldLoad);
 
