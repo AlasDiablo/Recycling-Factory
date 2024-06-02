@@ -7,7 +7,7 @@
   "item.recycling_factory.elite_scrap_box": "§bElite Scrap Box",
   "item.recycling_factory.ultimate_scrap_box": "§dUltimate Scrap Box",
 
-  "block.recycling_factory.rubbish_bin": "Rubbish Bin",
+  "block.recycling_factory.trash_can": "Rubbish Bin",
 
   "gui.recycling_factory.category.scrap_box.basic": "Basic Scrap Box",
   "gui.recycling_factory.category.scrap_box.advanced": "Advanced Scrap Box",

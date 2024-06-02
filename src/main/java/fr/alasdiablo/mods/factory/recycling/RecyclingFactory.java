@@ -6,6 +6,7 @@ import fr.alasdiablo.mods.factory.recycling.api.CrusherItemType;
 import fr.alasdiablo.mods.factory.recycling.data.model.RecyclingFactoryItemModelProvider;
 import fr.alasdiablo.mods.factory.recycling.data.recipe.RecyclingFactoryRecipeProvider;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryBlocks;
+import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryEntityTypes;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxBehavior;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxResultTier;
@@ -58,6 +59,9 @@ public class RecyclingFactory {
 
         LOGGER.debug("Register creative tab");
         CREATIVE_MODE_TABS.register(modEventBus);
+
+        LOGGER.debug("Register entity types");
+        RecyclingFactoryEntityTypes.register(modEventBus);
 
         LOGGER.debug("Register items");
         RecyclingFactoryItems.register(modEventBus);

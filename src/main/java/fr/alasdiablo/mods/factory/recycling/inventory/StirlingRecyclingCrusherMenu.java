@@ -10,10 +10,10 @@ import net.minecraft.world.item.crafting.RecipeType;
 
 public class StirlingRecyclingCrusherMenu extends AbstractFurnaceMenu {
     public StirlingRecyclingCrusherMenu(int containerId, Inventory inventory) {
-        super(MenuType.SMOKER, RecipeType.SMOKING, RecipeBookType.SMOKER, containerId, inventory);
+        super(MenuType.SMOKER, RecipeType.SMOKING, RecipeBookType.FURNACE, containerId, inventory);
     }
 
     public StirlingRecyclingCrusherMenu(int containerId, Inventory inventory, Container container, ContainerData containerData) {
-        super(MenuType.SMOKER, RecipeType.SMOKING, RecipeBookType.SMOKER, containerId, inventory, container, containerData);
+        super(MenuType.SMOKER, RecipeType.SMOKING, RecipeBookType.FURNACE, containerId, inventory, container, containerData);
     }
 }

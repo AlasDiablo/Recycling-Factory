@@ -9,7 +9,7 @@ public class Registries {
     public static final String ULTIMATE_SCRAP_BOX = "ultimate_scrap_box";
 
     // Block
-    public static final String RUBBISH_BIN = "rubbish_bin";
+    public static final String RUBBISH_BIN = "trash_can"; // TODO Change this to rubbish_bin in 1.21
     public static final String STIRLING_RECYCLING_CRUSHER = "stirling_recycling_crusher";
 
     // Blockstate

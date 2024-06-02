@@ -54,6 +54,7 @@ public class RecyclingFactoryBlocks {
     public static void onBuildCreativeTabContents(@NotNull BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == RecyclingFactory.RECYCLING_FACTORY_TAB.getKey()) {
             event.accept(RUBBISH_BIN);
+            event.accept(STIRLING_RECYCLING_CRUSHER);
         }
     }
 }
