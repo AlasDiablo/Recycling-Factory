@@ -157,8 +157,9 @@ public class StirlingRecyclingCrusher extends BaseEntityBlock {
             double x = blockPos.getX() + 0.5;
             double y = blockPos.getY();
             double z = blockPos.getZ() + 0.5;
-            if (random.nextDouble() < 0.1) {
-                world.playLocalSound(x, y, z, SoundEvents.FURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1, 1, false);
+
+            if (random.nextDouble() < 0.1) { // TODO Add crusher sounds on top of the fire crackle
+                world.playLocalSound(x, y, z, SoundEvents.BLASTFURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1, 1, false);
             }
 
             Direction      direction = blockState.getValue(FACING);
@@ -168,11 +169,10 @@ public class StirlingRecyclingCrusher extends BaseEntityBlock {
             double randomValue    = random.nextDouble() * 0.6 - 0.3;
 
             double randomX = axis == Direction.Axis.X ? direction.getStepX() * directionScale : randomValue;
-            double randomY = random.nextDouble() * 6.0 / 16.0;
+            double randomY = random.nextDouble() * 9.0 / 16.0;
             double randomZ = axis == Direction.Axis.Z ? direction.getStepZ() * directionScale : randomValue;
 
             world.addParticle(ParticleTypes.SMOKE, x + randomX, y + randomY, z + randomZ, 0, 0, 0);
-            world.addParticle(ParticleTypes.FLAME, x + randomX, y + randomY, z + randomZ, 0, 0, 0);
         }
     }
 }

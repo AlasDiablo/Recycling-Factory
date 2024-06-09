@@ -11,7 +11,4 @@ public class Registries {
     // Block
     public static final String RUBBISH_BIN = "trash_can"; // TODO Change this to rubbish_bin in 1.21
     public static final String STIRLING_RECYCLING_CRUSHER = "stirling_recycling_crusher";
-
-    // Blockstate
-    public static final String LEVEL_RUBBISH_BIN = "level_rubbish_bin";
 }

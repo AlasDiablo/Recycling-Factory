@@ -3,8 +3,11 @@ package fr.alasdiablo.mods.factory.recycling;
 import com.mojang.logging.LogUtils;
 import fr.alasdiablo.mods.factory.recycling.config.RecyclingFactoryConfig;
 import fr.alasdiablo.mods.factory.recycling.api.CrusherItemType;
+import fr.alasdiablo.mods.factory.recycling.data.loot.RecyclingFactoryLootTableProvider;
 import fr.alasdiablo.mods.factory.recycling.data.model.RecyclingFactoryItemModelProvider;
 import fr.alasdiablo.mods.factory.recycling.data.recipe.RecyclingFactoryRecipeProvider;
+import fr.alasdiablo.mods.factory.recycling.data.tag.RecyclingFactoryBlockTagsProvider;
+import fr.alasdiablo.mods.factory.recycling.data.tag.RecyclingFactoryItemTagsProvider;
 import fr.alasdiablo.mods.factory.recycling.gui.StirlingRecyclingCrusherScreen;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryBlocks;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryEntityTypes;
@@ -13,6 +16,7 @@ import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryMenuTypes;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxBehavior;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxResultTier;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxUseBehavior;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
@@ -31,6 +35,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
+
+import java.util.concurrent.CompletableFuture;
 
 @SuppressWarnings("deprecation")
 @Mod(RecyclingFactory.MODID)
@@ -132,13 +138,22 @@ public class RecyclingFactory {
     private void onGatherData(@NotNull GatherDataEvent event) {
         LOGGER.debug("Start data generator");
         final DataGenerator      generator          = event.getGenerator();
-        final PackOutput         output             = generator.getPackOutput();
-        final ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+        final PackOutput                               output             = generator.getPackOutput();
+        final CompletableFuture<HolderLookup.Provider> lookup             = event.getLookupProvider();
+        final ExistingFileHelper                       existingFileHelper = event.getExistingFileHelper();
 
         LOGGER.debug("Add Item Model Provider");
         generator.addProvider(event.includeClient(), new RecyclingFactoryItemModelProvider(output, existingFileHelper));
 
         LOGGER.debug("Add Recipe Provider");
         generator.addProvider(event.includeServer(), new RecyclingFactoryRecipeProvider(output));
+
+        LOGGER.debug("Add LootTable Provider");
+        generator.addProvider(event.includeServer(), new RecyclingFactoryLootTableProvider(output));
+
+        LOGGER.debug("Add Tags Provider");
+        final RecyclingFactoryBlockTagsProvider blockTagsProvider = new RecyclingFactoryBlockTagsProvider(output, lookup, existingFileHelper);
+        generator.addProvider(event.includeServer(), blockTagsProvider);
+        generator.addProvider(event.includeClient(), new RecyclingFactoryItemTagsProvider(output, lookup, blockTagsProvider, existingFileHelper));
     }
 }

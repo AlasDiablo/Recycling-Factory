@@ -1,5 +1,6 @@
-// 1.20.4	2023-12-28T14:52:31.5544938	Recipes
-c6abeff85cecd8c53c4e928000431fb06cdbdf41 data/recycling_factory/advancements/recipes/decorations/trash_can.json
+// 1.20.4	2024-06-09T12:26:12.2835495	Recipes
+a9f87c28c095c1d4bcdf1a2eb037a5b90c8033bc data/recycling_factory/advancements/recipes/decorations/stirling_recycling_crusher.json
+838f52bd7b50a4471bcbdb78e350b34cb3aa377b data/recycling_factory/advancements/recipes/decorations/trash_can.json
 d56813dd7bcc3ebd51b6d1cb5e158c7df4445c52 data/recycling_factory/advancements/recipes/misc/advanced_scrap_box.json
 b6452fd883a3f8ee5b8d5ac402028f41bbc23649 data/recycling_factory/advancements/recipes/misc/basic_scrap_box.json
 a005b52818b2dec9c711e7f768ee0d232879826e data/recycling_factory/advancements/recipes/misc/elite_scrap_box.json
@@ -7,5 +8,6 @@ ceab634a05ffcfab1e9e147199fa83caa258e0ba data/recycling_factory/advancements/rec
 4412202e885e4fadfbfab1d2222090ee4d1b9eac data/recycling_factory/recipes/advanced_scrap_box.json
 7cc027529e09a4255a14d1eac51a307d99d862e0 data/recycling_factory/recipes/basic_scrap_box.json
 03fbf7ff4bc020f0f20dd7908c4a50f203ea5f9e data/recycling_factory/recipes/elite_scrap_box.json
-20294840d98b2a8af08a915967a6ecca7c3056b0 data/recycling_factory/recipes/trash_can.json
+4580d792fe212208c1283aa7904f2241dd108fe2 data/recycling_factory/recipes/stirling_recycling_crusher.json
+473b398d2ecce67d41cca78e4b899939120ad4a8 data/recycling_factory/recipes/trash_can.json
 0392cc4d6f352992f2089a5744138f2c38d10a31 data/recycling_factory/recipes/ultimate_scrap_box.json

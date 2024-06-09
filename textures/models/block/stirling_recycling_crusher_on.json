@@ -1,0 +1,9 @@
+{
+    "parent": "minecraft:block/orientable_with_bottom",
+    "textures": {
+      "front": "recycling_factory:block/stirling_recycling_crusher_front_on",
+      "side": "recycling_factory:block/stirling_recycling_crusher_side",
+      "top": "recycling_factory:block/stirling_recycling_crusher_side",
+      "bottom": "recycling_factory:block/stirling_recycling_crusher_bottom"
+    }
+  }
