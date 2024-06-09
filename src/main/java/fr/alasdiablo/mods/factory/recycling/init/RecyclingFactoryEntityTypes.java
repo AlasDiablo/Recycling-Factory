@@ -24,8 +24,6 @@ public class RecyclingFactoryEntityTypes {
             )
     );
 
-
-
     public static void register(IEventBus bus) {
         BLOCK_ENTITY_TYPES.register(bus);
 

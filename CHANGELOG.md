@@ -3,6 +3,7 @@
 - Add Stirling Recycling Crusher
 - Fix missing loot table
 - Fix missing tags
+- Fix missing capabilities
 
 ### 1.2.0
 - Add a config system to allow adding and removing entry in the scrap box loot table
