@@ -5,9 +5,11 @@ import fr.alasdiablo.mods.factory.recycling.config.RecyclingFactoryConfig;
 import fr.alasdiablo.mods.factory.recycling.api.CrusherItemType;
 import fr.alasdiablo.mods.factory.recycling.data.model.RecyclingFactoryItemModelProvider;
 import fr.alasdiablo.mods.factory.recycling.data.recipe.RecyclingFactoryRecipeProvider;
+import fr.alasdiablo.mods.factory.recycling.gui.StirlingRecyclingCrusherScreen;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryBlocks;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryEntityTypes;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
+import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryMenuTypes;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxBehavior;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxResultTier;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxUseBehavior;
@@ -20,6 +22,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -63,6 +66,9 @@ public class RecyclingFactory {
         LOGGER.debug("Register entity types");
         RecyclingFactoryEntityTypes.register(modEventBus);
 
+        LOGGER.debug("Register menu types");
+        RecyclingFactoryMenuTypes.register(modEventBus);
+
         LOGGER.debug("Register items");
         RecyclingFactoryItems.register(modEventBus);
 
@@ -72,6 +78,9 @@ public class RecyclingFactory {
         LOGGER.debug("Add creative tab contents listener");
         modEventBus.addListener(RecyclingFactoryItems::onBuildCreativeTabContents);
         modEventBus.addListener(RecyclingFactoryBlocks::onBuildCreativeTabContents);
+
+        LOGGER.debug("Add screen listener");
+        modEventBus.addListener(this::onMenuScreens);
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
@@ -104,6 +113,10 @@ public class RecyclingFactory {
                 RecyclingFactoryItems.ULTIMATE_SCRAP_BOX,
                 new ScrapBoxUseBehavior(ScrapBoxResultTier.ULTIMATE)
         );
+    }
+
+    private void onMenuScreens(@NotNull RegisterMenuScreensEvent event) {
+        event.register(RecyclingFactoryMenuTypes.STIRLING_RECYCLING_CRUSHER.get(), StirlingRecyclingCrusherScreen::new);
     }
 
     private boolean worldLoadOneTimeAction = true;

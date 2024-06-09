@@ -9,6 +9,9 @@
 
   "block.recycling_factory.trash_can": "Trash Can",
 
+  "block.recycling_factory.stirling_recycling_crusher": "Stirling Recycling Crusher",
+  "gui.recycling_factory.stirling_recycling_crusher": "Stirling Recycling Crusher",
+
   "gui.recycling_factory.category.scrap_box.basic": "Basic Scrap Box",
   "gui.recycling_factory.category.scrap_box.advanced": "Advanced Scrap Box",
   "gui.recycling_factory.category.scrap_box.elite": "Elite Scrap Box",

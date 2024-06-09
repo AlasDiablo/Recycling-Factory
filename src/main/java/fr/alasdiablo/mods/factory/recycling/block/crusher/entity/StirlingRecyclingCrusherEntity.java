@@ -1,9 +1,10 @@
 package fr.alasdiablo.mods.factory.recycling.block.crusher.entity;
 
+import fr.alasdiablo.mods.factory.recycling.Registries;
 import fr.alasdiablo.mods.factory.recycling.block.crusher.StirlingRecyclingCrusher;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryEntityTypes;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
-import fr.alasdiablo.mods.factory.recycling.inventory.StirlingRecyclingCrusherMenu;
+import fr.alasdiablo.mods.factory.recycling.inventory.crusher.StirlingRecyclingCrusherMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.NonNullList;
@@ -99,7 +100,7 @@ public class StirlingRecyclingCrusherEntity extends BaseContainerBlockEntity imp
 
     @Override
     protected @NotNull Component getDefaultName() {
-        return Component.translatable("gui.recycling_factory.stirling.crusher");
+        return Component.translatable("gui.recycling_factory." + Registries.STIRLING_RECYCLING_CRUSHER);
     }
 
     @Override

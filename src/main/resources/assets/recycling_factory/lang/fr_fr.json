@@ -9,6 +9,9 @@
 
   "block.recycling_factory.trash_can": "Poubelle",
 
+  "block.recycling_factory.stirling_recycling_crusher": "Broyeur Stirling pour le recyclage",
+  "gui.recycling_factory.stirling_recycling_crusher": "Broyeur Stirling pour le recyclage",
+
   "gui.recycling_factory.category.scrap_box.basic": "Boîte de Déchets de Base",
   "gui.recycling_factory.category.scrap_box.advanced": "Boîte de Déchets Avancé",
   "gui.recycling_factory.category.scrap_box.elite": "Boîte de Déchets Élite",
