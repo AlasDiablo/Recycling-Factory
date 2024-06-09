@@ -2,12 +2,11 @@ package fr.alasdiablo.mods.factory.recycling.init;
 
 import fr.alasdiablo.mods.factory.recycling.RecyclingFactory;
 import fr.alasdiablo.mods.factory.recycling.Registries;
-import fr.alasdiablo.mods.factory.recycling.block.crusher.StirlingRecyclingCrusher;
+import fr.alasdiablo.mods.factory.recycling.block.crusher.StirlingRecyclingCrusherBlock;
 import fr.alasdiablo.mods.factory.recycling.block.rubbish.RubbishBinBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -29,7 +28,7 @@ public class RecyclingFactoryBlocks {
 
     public static final DeferredBlock<Block> STIRLING_RECYCLING_CRUSHER = register(
             Registries.STIRLING_RECYCLING_CRUSHER,
-            () -> new StirlingRecyclingCrusher(
+            () -> new StirlingRecyclingCrusherBlock(
                     BlockBehaviour.Properties.of()
                             .mapColor(MapColor.STONE)
                             .instrument(NoteBlockInstrument.BASEDRUM)

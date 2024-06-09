@@ -38,15 +38,12 @@ public class RubbishBinInputContainer extends SimpleContainer implements Worldly
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int p_52028_, @NotNull ItemStack itemStack, @Nullable Direction direction) {
-        if (itemStack.isEmpty()) {
-            return false;
-        }
+    public boolean canPlaceItemThroughFace(int index, @NotNull ItemStack itemStack, @Nullable Direction direction) {
         return !this.changed && direction == Direction.UP;
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int p_19239_, @NotNull ItemStack itemStack, @NotNull Direction direction) {
+    public boolean canTakeItemThroughFace(int index, @NotNull ItemStack itemStack, @NotNull Direction direction) {
         return false;
     }
 

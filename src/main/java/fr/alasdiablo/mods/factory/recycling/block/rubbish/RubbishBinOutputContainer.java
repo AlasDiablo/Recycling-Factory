@@ -39,12 +39,12 @@ public class RubbishBinOutputContainer extends SimpleContainer implements Worldl
     }
 
     @Override
-    public boolean canPlaceItemThroughFace(int p_52028_, @NotNull ItemStack itemStack, @Nullable Direction direction) {
+    public boolean canPlaceItemThroughFace(int index, @NotNull ItemStack itemStack, @Nullable Direction direction) {
         return false;
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int p_19239_, @NotNull ItemStack itemStack, @NotNull Direction direction) {
+    public boolean canTakeItemThroughFace(int index, @NotNull ItemStack itemStack, @NotNull Direction direction) {
         return !this.changed && direction == Direction.DOWN && itemStack.is(RecyclingFactoryItems.SCRAP.asItem());
     }
 

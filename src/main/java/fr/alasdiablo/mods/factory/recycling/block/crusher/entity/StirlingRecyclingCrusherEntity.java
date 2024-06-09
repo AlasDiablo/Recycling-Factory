@@ -1,7 +1,7 @@
 package fr.alasdiablo.mods.factory.recycling.block.crusher.entity;
 
 import fr.alasdiablo.mods.factory.recycling.Registries;
-import fr.alasdiablo.mods.factory.recycling.block.crusher.StirlingRecyclingCrusher;
+import fr.alasdiablo.mods.factory.recycling.block.crusher.StirlingRecyclingCrusherBlock;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryEntityTypes;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
 import fr.alasdiablo.mods.factory.recycling.inventory.crusher.StirlingRecyclingCrusherMenu;
@@ -191,7 +191,7 @@ public class StirlingRecyclingCrusherEntity extends BaseContainerBlockEntity imp
 
         if (isLit != blockEntity.isLit()) {
             hasChange  = true;
-            blockState = blockState.setValue(StirlingRecyclingCrusher.LIT, blockEntity.isLit());
+            blockState = blockState.setValue(StirlingRecyclingCrusherBlock.LIT, blockEntity.isLit());
             world.setBlock(blockPos, blockState, 3);
         }
 

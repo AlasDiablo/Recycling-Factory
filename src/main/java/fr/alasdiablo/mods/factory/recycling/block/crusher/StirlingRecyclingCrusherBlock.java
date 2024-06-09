@@ -33,13 +33,14 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class StirlingRecyclingCrusher extends BaseEntityBlock {
+@SuppressWarnings("deprecation")
+public class StirlingRecyclingCrusherBlock extends BaseEntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
     public static final BooleanProperty   LIT    = BlockStateProperties.LIT;
 
-    public static final MapCodec<StirlingRecyclingCrusher> CODEC = simpleCodec(StirlingRecyclingCrusher::new);
+    public static final MapCodec<StirlingRecyclingCrusherBlock> CODEC = simpleCodec(StirlingRecyclingCrusherBlock::new);
 
-    public StirlingRecyclingCrusher(Properties properties) {
+    public StirlingRecyclingCrusherBlock(Properties properties) {
         super(properties);
         this.registerDefaultState(
                 this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(LIT, Boolean.FALSE)
@@ -47,7 +48,7 @@ public class StirlingRecyclingCrusher extends BaseEntityBlock {
     }
 
     @Override
-    protected @NotNull MapCodec<StirlingRecyclingCrusher> codec() {
+    protected @NotNull MapCodec<StirlingRecyclingCrusherBlock> codec() {
         return CODEC;
     }
 
@@ -115,17 +116,17 @@ public class StirlingRecyclingCrusher extends BaseEntityBlock {
     }
 
     @Override
-    public RenderShape getRenderShape(@NotNull BlockState blockState) {
+    public @NotNull RenderShape getRenderShape(@NotNull BlockState blockState) {
         return RenderShape.MODEL;
     }
 
     @Override
-    public BlockState rotate(@NotNull BlockState blockState, @NotNull Rotation rotation) {
+    public @NotNull BlockState rotate(@NotNull BlockState blockState, @NotNull Rotation rotation) {
         return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
     }
 
     @Override
-    public BlockState mirror(@NotNull BlockState blockState, @NotNull Mirror mirror) {
+    public @NotNull BlockState mirror(@NotNull BlockState blockState, @NotNull Mirror mirror) {
         return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
     }
 

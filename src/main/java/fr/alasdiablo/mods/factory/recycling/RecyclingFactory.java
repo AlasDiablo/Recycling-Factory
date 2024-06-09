@@ -2,17 +2,13 @@ package fr.alasdiablo.mods.factory.recycling;
 
 import com.mojang.logging.LogUtils;
 import fr.alasdiablo.mods.factory.recycling.config.RecyclingFactoryConfig;
-import fr.alasdiablo.mods.factory.recycling.api.CrusherItemType;
 import fr.alasdiablo.mods.factory.recycling.data.loot.RecyclingFactoryLootTableProvider;
 import fr.alasdiablo.mods.factory.recycling.data.model.RecyclingFactoryItemModelProvider;
 import fr.alasdiablo.mods.factory.recycling.data.recipe.RecyclingFactoryRecipeProvider;
 import fr.alasdiablo.mods.factory.recycling.data.tag.RecyclingFactoryBlockTagsProvider;
 import fr.alasdiablo.mods.factory.recycling.data.tag.RecyclingFactoryItemTagsProvider;
 import fr.alasdiablo.mods.factory.recycling.gui.StirlingRecyclingCrusherScreen;
-import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryBlocks;
-import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryEntityTypes;
-import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
-import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryMenuTypes;
+import fr.alasdiablo.mods.factory.recycling.init.*;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxBehavior;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxResultTier;
 import fr.alasdiablo.mods.factory.recycling.item.behavior.ScrapBoxUseBehavior;
@@ -21,16 +17,22 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.WorldlyContainerHolder;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.neoforge.items.wrapper.ForwardingItemHandler;
+import net.neoforged.neoforge.items.wrapper.InvWrapper;
+import net.neoforged.neoforge.items.wrapper.SidedInvWrapper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +43,7 @@ import java.util.concurrent.CompletableFuture;
 @SuppressWarnings("deprecation")
 @Mod(RecyclingFactory.MODID)
 public class RecyclingFactory {
-    public static final  String MODID  = "recycling_factory";
+    public static final String MODID  = "recycling_factory";
     public static final Logger LOGGER = LogUtils.getLogger();
 
     private static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
@@ -60,12 +62,6 @@ public class RecyclingFactory {
         LOGGER.debug("Add world loading listener");
         NeoForge.EVENT_BUS.addListener(this::onWorldLoad);
 
-        LOGGER.debug("Add common setup listener");
-        modEventBus.addListener(this::onCommonSetup);
-
-        LOGGER.debug("Add gather data listener");
-        modEventBus.addListener(this::onGatherData);
-
         LOGGER.debug("Register creative tab");
         CREATIVE_MODE_TABS.register(modEventBus);
 
@@ -74,6 +70,9 @@ public class RecyclingFactory {
 
         LOGGER.debug("Register menu types");
         RecyclingFactoryMenuTypes.register(modEventBus);
+
+        LOGGER.debug("Register block types");
+        RecyclingFactoryBlockTypes.register(modEventBus);
 
         LOGGER.debug("Register items");
         RecyclingFactoryItems.register(modEventBus);
@@ -87,12 +86,18 @@ public class RecyclingFactory {
 
         LOGGER.debug("Add screen listener");
         modEventBus.addListener(this::onMenuScreens);
+
+        LOGGER.debug("Add capabilities listener");
+        modEventBus.addListener(this::onCapabilities);
+
+        LOGGER.debug("Add common setup listener");
+        modEventBus.addListener(this::onCommonSetup);
+
+        LOGGER.debug("Add gather data listener");
+        modEventBus.addListener(this::onGatherData);
     }
 
     private void onCommonSetup(FMLCommonSetupEvent event) {
-        LOGGER.debug("Register crusher item type");
-        CrusherItemType.register();
-
         LOGGER.debug("Register scrap box loot table");
         ScrapBoxBehavior.registerDrop();
 
@@ -125,6 +130,43 @@ public class RecyclingFactory {
         event.register(RecyclingFactoryMenuTypes.STIRLING_RECYCLING_CRUSHER.get(), StirlingRecyclingCrusherScreen::new);
     }
 
+    /**
+     * @see net.neoforged.neoforge.capabilities.CapabilityHooks
+     */
+    private void onCapabilities(@NotNull RegisterCapabilitiesEvent event) {
+        WorldlyContainerHolder rubbishBinBlock = (WorldlyContainerHolder) RecyclingFactoryBlocks.RUBBISH_BIN.get();
+        event.registerBlock(Capabilities.ItemHandler.BLOCK, (level, pos, state, blockEntity, side) -> {
+            if (side == null) {
+                return new ForwardingItemHandler(
+                        () -> new InvWrapper(
+                                rubbishBinBlock.getContainer(
+                                        level.getBlockState(pos),
+                                        level,
+                                        pos
+                                )
+                        )
+                );
+            } else {
+                return new ForwardingItemHandler(
+                        () -> new SidedInvWrapper(
+                                rubbishBinBlock.getContainer(
+                                        level.getBlockState(pos),
+                                        level,
+                                        pos
+                                ),
+                                side
+                        )
+                );
+            }
+        }, RecyclingFactoryBlocks.RUBBISH_BIN.get());
+
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                RecyclingFactoryEntityTypes.STIRLING_RECYCLING_CRUSHER.get(),
+                (sidedContainer, side) -> side == null ? new InvWrapper(sidedContainer) : new SidedInvWrapper(sidedContainer, side)
+        );
+    }
+
     private boolean worldLoadOneTimeAction = true;
 
     private void onWorldLoad(LevelEvent.Load event) {
@@ -137,7 +179,7 @@ public class RecyclingFactory {
 
     private void onGatherData(@NotNull GatherDataEvent event) {
         LOGGER.debug("Start data generator");
-        final DataGenerator      generator          = event.getGenerator();
+        final DataGenerator                            generator          = event.getGenerator();
         final PackOutput                               output             = generator.getPackOutput();
         final CompletableFuture<HolderLookup.Provider> lookup             = event.getLookupProvider();
         final ExistingFileHelper                       existingFileHelper = event.getExistingFileHelper();

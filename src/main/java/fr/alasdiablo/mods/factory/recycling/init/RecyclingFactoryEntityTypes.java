@@ -8,6 +8,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
+import java.util.Set;
+
 public class RecyclingFactoryEntityTypes {
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(
             net.minecraft.core.registries.Registries.BLOCK_ENTITY_TYPE, RecyclingFactory.MODID);
@@ -15,13 +17,18 @@ public class RecyclingFactoryEntityTypes {
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<StirlingRecyclingCrusherEntity>> STIRLING_RECYCLING_CRUSHER
             = BLOCK_ENTITY_TYPES.register(
             Registries.STIRLING_RECYCLING_CRUSHER,
-            () -> BlockEntityType.Builder.of(
+            () -> new BlockEntityType<>(
                     StirlingRecyclingCrusherEntity::new,
-                    RecyclingFactoryBlocks.STIRLING_RECYCLING_CRUSHER.get()
-            ).build(null)
+                    Set.of(RecyclingFactoryBlocks.STIRLING_RECYCLING_CRUSHER.get()),
+                    null
+            )
     );
+
+
 
     public static void register(IEventBus bus) {
         BLOCK_ENTITY_TYPES.register(bus);
+
+
     }
 }
