@@ -1,11 +1,11 @@
 [![Downloads CurseForge](https://img.shields.io/curseforge/dt/955992?style=for-the-badge&logo=curseforge&labelColor=2D2D2D&color=f16436)](https://www.curseforge.com/minecraft/mc-mods/recycling-factory)
 [![Downloads Modrinth](https://img.shields.io/modrinth/dt/hUeZqJNG?style=for-the-badge&logo=modrinth&labelColor=2D2D2D&color=00AF5C)](https://modrinth.com/mod/recycling-factory)
-[![Versions](http://cf.way2muchnoise.eu/versions/955992.svg?badge_style=for_the_badge)](https://www.curseforge.com/minecraft/mc-mods/recycling-factory/files)
+![Versions](http://cf.way2muchnoise.eu/versions/955992.svg?badge_style=for_the_badge)
 [![size](https://img.shields.io/github/repo-size/AlasDiablo/Recycling-Factory?style=for-the-badge&labelColor=2D2D2D)](https://github.com/AlasDiablo/Recycling-Factory)
 
-# About Recycling Factory
+# About Dio's Recycling Factory
 
-Recycling Factory is a mod that aims to give a second life to blocks and items that have no use or are available in large quantities.
+Dio's Recycling Factory is a mod that aims to give a second life to blocks and items that have no use or are available in large quantities.
 We are taking inspiration from the IC2 Scrap Box and redesigning it with more loot and future mod integration.
 
 ## What's in the Mod
