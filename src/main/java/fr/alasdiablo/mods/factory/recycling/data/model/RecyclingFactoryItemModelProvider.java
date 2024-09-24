@@ -25,7 +25,7 @@ public class RecyclingFactoryItemModelProvider extends ItemModelProvider {
     }
 
     private void item(@NotNull String other) {
-        withExistingParent(other, new ResourceLocation("item/generated"))
-                .texture("layer0", new ResourceLocation(RecyclingFactory.MODID, "item/" + other));
+        withExistingParent(other, ResourceLocation.withDefaultNamespace("item/generated"))
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath(RecyclingFactory.MODID, "item/" + other));
     }
 }

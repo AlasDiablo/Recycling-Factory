@@ -14,7 +14,11 @@ public class RecyclingFactoryEntityTypes {
     private static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY_TYPES = DeferredRegister.create(
             net.minecraft.core.registries.Registries.BLOCK_ENTITY_TYPE, RecyclingFactory.MODID);
 
-    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<StirlingRecyclingCrusherEntity>> STIRLING_RECYCLING_CRUSHER
+    public static void register(IEventBus bus) {
+        BLOCK_ENTITY_TYPES.register(bus);
+
+
+    }    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<StirlingRecyclingCrusherEntity>> STIRLING_RECYCLING_CRUSHER
             = BLOCK_ENTITY_TYPES.register(
             Registries.STIRLING_RECYCLING_CRUSHER,
             () -> new BlockEntityType<>(
@@ -24,9 +28,5 @@ public class RecyclingFactoryEntityTypes {
             )
     );
 
-    public static void register(IEventBus bus) {
-        BLOCK_ENTITY_TYPES.register(bus);
 
-
-    }
 }

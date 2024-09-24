@@ -2,20 +2,20 @@ package fr.alasdiablo.mods.factory.recycling.config;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import fr.alasdiablo.diolib.api.config.JsonConfig;
+import fr.alasdiablo.mods.lib.api.config.JsonConfig;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ScrapBoxConfig extends JsonConfig {
-    private final String name;
-    private final List<AddEntry> addEntries;
+    private final String            name;
+    private final List<AddEntry>    addEntries;
     private final List<RemoveEntry> removeEntries;
 
     public ScrapBoxConfig(String name) {
-        this.name = name;
-        this.addEntries = new ArrayList<>();
+        this.name          = name;
+        this.addEntries    = new ArrayList<>();
         this.removeEntries = new ArrayList<>();
     }
 
@@ -64,5 +64,6 @@ public class ScrapBoxConfig extends JsonConfig {
     }
 
     public record AddEntry(String type, String id, float chance) {}
+
     public record RemoveEntry(String type, String id) {}
 }

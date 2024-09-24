@@ -13,10 +13,10 @@ public class RecyclingFactoryMenuTypes {
     private static final DeferredRegister<MenuType<?>> MENU_TYPES = DeferredRegister.create(
             net.minecraft.core.registries.Registries.MENU, RecyclingFactory.MODID);
 
-    public static final DeferredHolder<MenuType<?>, MenuType<StirlingRecyclingCrusherMenu>> STIRLING_RECYCLING_CRUSHER = MENU_TYPES.register(
-            Registries.STIRLING_RECYCLING_CRUSHER, () -> new MenuType<>(StirlingRecyclingCrusherMenu::new, FeatureFlags.VANILLA_SET));
-
     public static void register(IEventBus bus) {
         MENU_TYPES.register(bus);
-    }
+    }    public static final DeferredHolder<MenuType<?>, MenuType<StirlingRecyclingCrusherMenu>> STIRLING_RECYCLING_CRUSHER = MENU_TYPES.register(
+            Registries.STIRLING_RECYCLING_CRUSHER, () -> new MenuType<>(StirlingRecyclingCrusherMenu::new, FeatureFlags.VANILLA_SET));
+
+
 }

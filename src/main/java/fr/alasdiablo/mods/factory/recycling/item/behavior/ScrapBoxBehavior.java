@@ -1,7 +1,6 @@
 package fr.alasdiablo.mods.factory.recycling.item.behavior;
 
 import com.mojang.datafixers.util.Pair;
-import fr.alasdiablo.mods.factory.recycling.RecyclingFactory;
 import fr.alasdiablo.mods.factory.recycling.api.ChanceDrop;
 import fr.alasdiablo.mods.factory.recycling.config.RecyclingFactoryConfig;
 import fr.alasdiablo.mods.factory.recycling.config.ScrapBoxConfig;
@@ -165,20 +164,20 @@ public class ScrapBoxBehavior {
         Registry<Item> itemRegistry = RecyclingFactoryItems.getRegistry();
 
         config.getRemoveEntries().forEach(removeEntry -> {
-            Item item = itemRegistry.get(new ResourceLocation(removeEntry.id()));
+            Item               item = itemRegistry.get(ResourceLocation.parse(removeEntry.id()));
             ScrapBoxResultType type = removeEntry.type().equals("tool") ? ScrapBoxResultType.TOOL : ScrapBoxResultType.NORMAL;
 
             RAW_DROPS.stream().filter(pairChanceDropPair -> {
                 ScrapBoxResultType dropType = pairChanceDropPair.getFirst().getFirst();
-                Item dropItem = pairChanceDropPair.getSecond().getDrop();
+                Item               dropItem = pairChanceDropPair.getSecond().getDrop();
                 return dropType == type && dropItem == item;
             }).findAny().ifPresent(RAW_DROPS::remove);
         });
 
         config.getAddEntries().forEach(addEntry -> {
-            Item item = itemRegistry.get(new ResourceLocation(addEntry.id()));
-            ScrapBoxResultType type = addEntry.type().equals("tool") ? ScrapBoxResultType.TOOL : ScrapBoxResultType.NORMAL;
-            float chance = addEntry.chance();
+            Item               item   = itemRegistry.get(ResourceLocation.parse(addEntry.id()));
+            ScrapBoxResultType type   = addEntry.type().equals("tool") ? ScrapBoxResultType.TOOL : ScrapBoxResultType.NORMAL;
+            float              chance = addEntry.chance();
             addDrop(type, tier, item, chance);
         });
     }

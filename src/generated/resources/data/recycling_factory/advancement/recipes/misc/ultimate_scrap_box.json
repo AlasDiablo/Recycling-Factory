@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "recycling_factory:elite_scrap_box"
-            ]
+            "items": "recycling_factory:elite_scrap_box"
           }
         ]
       },

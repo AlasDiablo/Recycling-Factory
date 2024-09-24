@@ -1,3 +1,7 @@
+### 2.1.0
+- Update to Minecraft 1.21.1
+- Rename the registry name of the Trash can
+
 ### 2.0.0
 - Refactor the source code to use UK English
 - Add Stirling Recycling Crusher

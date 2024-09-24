@@ -7,7 +7,7 @@
   "item.recycling_factory.elite_scrap_box": "§bBoîte de Déchets Élite",
   "item.recycling_factory.ultimate_scrap_box": "§dBoîte de Déchets Ultime",
 
-  "block.recycling_factory.trash_can": "Poubelle",
+  "block.recycling_factory.rubbish_bin": "Poubelle",
 
   "block.recycling_factory.stirling_recycling_crusher": "Broyeur Stirling pour le recyclage",
   "gui.recycling_factory.stirling_recycling_crusher": "Broyeur Stirling pour le recyclage",

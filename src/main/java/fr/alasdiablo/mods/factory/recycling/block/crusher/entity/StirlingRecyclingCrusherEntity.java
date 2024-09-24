@@ -7,6 +7,7 @@ import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryItems;
 import fr.alasdiablo.mods.factory.recycling.inventory.crusher.StirlingRecyclingCrusherMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
@@ -116,23 +117,23 @@ public class StirlingRecyclingCrusherEntity extends BaseContainerBlockEntity imp
     }
 
     @Override
-    public void load(@NotNull CompoundTag compoundTag) {
-        super.load(compoundTag);
+    protected void loadAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
+        super.loadAdditional(tag, registries);
         this.items = NonNullList.withSize(this.getContainerSize(), ItemStack.EMPTY);
-        ContainerHelper.loadAllItems(compoundTag, this.items);
-        this.litTime          = compoundTag.getInt("BurnTime");
-        this.cookingProgress  = compoundTag.getInt("CookTime");
-        this.cookingTotalTime = compoundTag.getInt("CookTimeTotal");
+        ContainerHelper.loadAllItems(tag, this.items, registries);
+        this.litTime          = tag.getInt("BurnTime");
+        this.cookingProgress  = tag.getInt("CookTime");
+        this.cookingTotalTime = tag.getInt("CookTimeTotal");
         this.litDuration      = this.getBurnDuration(this.items.get(1));
     }
 
     @Override
-    protected void saveAdditional(@NotNull CompoundTag compoundTag) {
-        super.saveAdditional(compoundTag);
-        compoundTag.putInt("BurnTime", this.litTime);
-        compoundTag.putInt("CookTime", this.cookingProgress);
-        compoundTag.putInt("CookTimeTotal", this.cookingTotalTime);
-        ContainerHelper.saveAllItems(compoundTag, this.items);
+    protected void saveAdditional(@NotNull CompoundTag tag, HolderLookup.@NotNull Provider registries) {
+        super.saveAdditional(tag, registries);
+        tag.putInt("BurnTime", this.litTime);
+        tag.putInt("CookTime", this.cookingProgress);
+        tag.putInt("CookTimeTotal", this.cookingTotalTime);
+        ContainerHelper.saveAllItems(tag, this.items, registries);
     }
 
     private boolean isLit() {
@@ -258,7 +259,7 @@ public class StirlingRecyclingCrusherEntity extends BaseContainerBlockEntity imp
     }
 
     @Override
-    public boolean canTakeItemThroughFace(int index, ItemStack itemStack, Direction direction) {
+    public boolean canTakeItemThroughFace(int index, @NotNull ItemStack itemStack, @NotNull Direction direction) {
         if (direction == Direction.DOWN && index == 1) {
             return itemStack.is(Items.WATER_BUCKET) || itemStack.is(Items.BUCKET);
         }
@@ -272,7 +273,7 @@ public class StirlingRecyclingCrusherEntity extends BaseContainerBlockEntity imp
 
     @Override
     public boolean isEmpty() {
-        for(ItemStack itemstack : this.items) {
+        for (ItemStack itemstack: this.items) {
             if (!itemstack.isEmpty()) {
                 return false;
             }
@@ -297,9 +298,19 @@ public class StirlingRecyclingCrusherEntity extends BaseContainerBlockEntity imp
     }
 
     @Override
+    public @NotNull NonNullList<ItemStack> getItems() {
+        return items;
+    }
+
+    @Override
+    public void setItems(@NotNull NonNullList<ItemStack> items) {
+        this.items = items;
+    }
+
+    @Override
     public void setItem(int slot, @NotNull ItemStack itemStack) {
         ItemStack slotItemStack = this.items.get(slot);
-        boolean flag = !itemStack.isEmpty() && ItemStack.isSameItemSameTags(slotItemStack, itemStack);
+        boolean   flag          = !itemStack.isEmpty() && ItemStack.isSameItemSameComponents(slotItemStack, itemStack);
         this.items.set(slot, itemStack);
         if (itemStack.getCount() > this.getMaxStackSize()) {
             itemStack.setCount(this.getMaxStackSize());
@@ -307,7 +318,7 @@ public class StirlingRecyclingCrusherEntity extends BaseContainerBlockEntity imp
 
         if (slot == 0 && !flag) {
             this.cookingTotalTime = BURN_TIME_STANDARD;
-            this.cookingProgress = 0;
+            this.cookingProgress  = 0;
             this.setChanged();
         }
     }
@@ -324,7 +335,7 @@ public class StirlingRecyclingCrusherEntity extends BaseContainerBlockEntity imp
 
     @Override
     public void fillStackedContents(@NotNull StackedContents contents) {
-        for(ItemStack itemStack : this.items) {
+        for (ItemStack itemStack: this.items) {
             contents.accountStack(itemStack);
         }
     }

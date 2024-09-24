@@ -6,13 +6,13 @@
       "item": "minecraft:blast_furnace"
     },
     "D": {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     "P": {
       "item": "minecraft:piston"
     },
     "R": {
-      "item": "recycling_factory:trash_can"
+      "item": "recycling_factory:rubbish_bin"
     },
     "S": {
       "item": "minecraft:smooth_stone"
@@ -24,6 +24,7 @@
     "SBS"
   ],
   "result": {
-    "item": "recycling_factory:stirling_recycling_crusher"
+    "count": 1,
+    "id": "recycling_factory:stirling_recycling_crusher"
   }
 }

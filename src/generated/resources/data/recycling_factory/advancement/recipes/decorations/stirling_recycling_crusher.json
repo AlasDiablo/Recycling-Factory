@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:blast_furnace"
-            ]
+            "items": "minecraft:blast_furnace"
           }
         ]
       },
@@ -17,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "forge:gems/diamond"
+            "items": "#c:gems/diamond"
           }
         ]
       },
@@ -27,9 +25,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:piston"
-            ]
+            "items": "minecraft:piston"
           }
         ]
       },
@@ -39,9 +35,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "recycling_factory:trash_can"
-            ]
+            "items": "recycling_factory:rubbish_bin"
           }
         ]
       },
@@ -51,9 +45,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:smooth_stone"
-            ]
+            "items": "minecraft:smooth_stone"
           }
         ]
       },

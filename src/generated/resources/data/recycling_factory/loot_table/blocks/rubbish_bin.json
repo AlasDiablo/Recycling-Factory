@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "recycling_factory:trash_can"
+          "name": "recycling_factory:rubbish_bin"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "recycling_factory:blocks/trash_can"
+  "random_sequence": "recycling_factory:blocks/rubbish_bin"
 }

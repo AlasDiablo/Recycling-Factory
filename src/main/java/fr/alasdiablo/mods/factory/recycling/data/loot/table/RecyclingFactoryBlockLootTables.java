@@ -1,14 +1,15 @@
 package fr.alasdiablo.mods.factory.recycling.data.loot.table;
 
-import fr.alasdiablo.diolib.api.data.loot.DioBlockLootSubProvider;
 import fr.alasdiablo.mods.factory.recycling.init.RecyclingFactoryBlocks;
+import fr.alasdiablo.mods.lib.api.data.loot.DioBlockLootSubProvider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.flag.FeatureFlags;
 
 import java.util.Set;
 
 public class RecyclingFactoryBlockLootTables extends DioBlockLootSubProvider {
-    public RecyclingFactoryBlockLootTables() {
-        super(Set.of(), FeatureFlags.REGISTRY.allFlags());
+    public RecyclingFactoryBlockLootTables(HolderLookup.Provider registries) {
+        super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);
     }
 
     @Override

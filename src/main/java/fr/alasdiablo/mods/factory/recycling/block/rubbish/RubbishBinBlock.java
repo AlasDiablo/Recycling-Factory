@@ -10,10 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.WorldlyContainer;
-import net.minecraft.world.WorldlyContainerHolder;
+import net.minecraft.world.*;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
@@ -37,7 +34,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 
-@SuppressWarnings("deprecation")
 public class RubbishBinBlock extends Block implements WorldlyContainerHolder {
     public static final  int                       MIN_LEVEL   = 0;
     public static final  int                       MAX_LEVEL   = 7;
@@ -107,34 +103,38 @@ public class RubbishBinBlock extends Block implements WorldlyContainerHolder {
 
     @Override
     public void onRemove(
-            @NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState previousBlockState, boolean p_60519_
+            @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull BlockState newState, boolean movedByPiston
     ) {
-        super.onRemove(blockState, level, pos, previousBlockState, p_60519_);
+        super.onRemove(state, level, pos, newState, movedByPiston);
         // Neo: Invalidate composter capabilities when a composter is removed
-        if (!blockState.is(previousBlockState.getBlock())) level.invalidateCapabilities(pos);
+        if (!state.is(newState.getBlock())) level.invalidateCapabilities(pos);
     }
 
     @Override
-    public @NotNull InteractionResult use(
-            @NotNull BlockState blockState, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull InteractionHand interactionHand,
-            @NotNull BlockHitResult hitResult
+    protected @NotNull ItemInteractionResult useItemOn(
+            @NotNull ItemStack stack, @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player,
+            @NotNull InteractionHand hand, @NotNull BlockHitResult hitResult
     ) {
-        int       i         = blockState.getValue(LEVEL);
-        ItemStack itemstack = player.getItemInHand(interactionHand);
-        if (i < READY && !itemstack.isEmpty()) {
+        int i = state.getValue(LEVEL);
+        if (i < READY && !stack.isEmpty()) {
             if (i < MAX_LEVEL && !level.isClientSide) {
-                BlockState blockstate = RubbishBinBlock.addItem(player, blockState, level, pos, itemstack);
-                level.levelEvent(1500, pos, blockState != blockstate ? 1 : 0);
-                player.awardStat(Stats.ITEM_USED.get(itemstack.getItem()));
-                if (!player.getAbilities().instabuild) {
-                    itemstack.shrink(1);
-                }
+                BlockState blockstate = RubbishBinBlock.addItem(player, state, level, pos, stack);
+                level.levelEvent(1500, pos, state != blockstate ? 1 : 0);
+                player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+                stack.consume(1, player);
             }
-
-            return InteractionResult.sidedSuccess(level.isClientSide);
+            return ItemInteractionResult.sidedSuccess(level.isClientSide);
         }
+        return super.useItemOn(stack, state, level, pos, player, hand, hitResult);
+    }
+
+    @Override
+    protected @NotNull InteractionResult useWithoutItem(
+            @NotNull BlockState state, @NotNull Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult
+    ) {
+        int i = state.getValue(LEVEL);
         if (i == READY) {
-            RubbishBinBlock.extractProduce(player, blockState, level, pos);
+            RubbishBinBlock.extractProduce(player, state, level, pos);
             return InteractionResult.sidedSuccess(level.isClientSide);
         }
         return InteractionResult.PASS;
@@ -207,9 +207,7 @@ public class RubbishBinBlock extends Block implements WorldlyContainerHolder {
     }
 
     @Override
-    public boolean isPathfindable(
-            @NotNull BlockState blockState, @NotNull BlockGetter blockGetter, @NotNull BlockPos blockPos, @NotNull PathComputationType pathComputationType
-    ) {
+    protected boolean isPathfindable(@NotNull BlockState state, @NotNull PathComputationType pathComputationType) {
         return false;
     }
 

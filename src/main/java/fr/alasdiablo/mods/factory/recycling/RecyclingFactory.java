@@ -188,10 +188,10 @@ public class RecyclingFactory {
         generator.addProvider(event.includeClient(), new RecyclingFactoryItemModelProvider(output, existingFileHelper));
 
         LOGGER.debug("Add Recipe Provider");
-        generator.addProvider(event.includeServer(), new RecyclingFactoryRecipeProvider(output));
+        generator.addProvider(event.includeServer(), new RecyclingFactoryRecipeProvider(output, lookup));
 
         LOGGER.debug("Add LootTable Provider");
-        generator.addProvider(event.includeServer(), new RecyclingFactoryLootTableProvider(output));
+        generator.addProvider(event.includeServer(), new RecyclingFactoryLootTableProvider(output, lookup));
 
         LOGGER.debug("Add Tags Provider");
         final RecyclingFactoryBlockTagsProvider blockTagsProvider = new RecyclingFactoryBlockTagsProvider(output, lookup, existingFileHelper);

@@ -20,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 public class JEIPlugin implements IModPlugin {
     @Override
     public @NotNull ResourceLocation getPluginUid() {
-        return new ResourceLocation(RecyclingFactory.MODID, "jei_plugin");
+        return ResourceLocation.fromNamespaceAndPath(RecyclingFactory.MODID, "jei_plugin");
     }
 
     @Override

@@ -20,9 +20,9 @@ public class StirlingRecyclingCrusherScreen extends AbstractContainerScreen<Stir
             Component title
     ) {
         super(menu, playerInventory, title);
-        this.texture            = new ResourceLocation("minecraft", "textures/gui/container/furnace.png");
-        this.litProgressSprite  = new ResourceLocation("minecraft", "container/furnace/lit_progress");
-        this.burnProgressSprite = new ResourceLocation("minecraft", "container/furnace/burn_progress");
+        this.texture            = ResourceLocation.withDefaultNamespace("textures/gui/container/furnace.png");
+        this.litProgressSprite  = ResourceLocation.withDefaultNamespace("container/furnace/lit_progress");
+        this.burnProgressSprite = ResourceLocation.withDefaultNamespace("container/furnace/burn_progress");
     }
 
     @Override

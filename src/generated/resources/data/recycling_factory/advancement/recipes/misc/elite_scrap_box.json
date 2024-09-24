@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_basic_scrap_box": {
+    "has_advanced_scrap_box": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "recycling_factory:basic_scrap_box"
-            ]
+            "items": "recycling_factory:advanced_scrap_box"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "recycling_factory:advanced_scrap_box"
+        "recipe": "recycling_factory:elite_scrap_box"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_basic_scrap_box"
+      "has_advanced_scrap_box"
     ]
   ],
   "rewards": {
     "recipes": [
-      "recycling_factory:advanced_scrap_box"
+      "recycling_factory:elite_scrap_box"
     ]
   }
 }

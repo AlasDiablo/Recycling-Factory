@@ -11,13 +11,10 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.Containers;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
@@ -53,14 +50,13 @@ public class StirlingRecyclingCrusherBlock extends BaseEntityBlock {
     }
 
     @Override
-    public @NotNull InteractionResult use(
-            @NotNull BlockState blockState, @NotNull Level world, @NotNull BlockPos blockPos, @NotNull Player player, @NotNull InteractionHand hand,
-            @NotNull BlockHitResult result
+    protected @NotNull InteractionResult useWithoutItem(
+            @NotNull BlockState state, Level level, @NotNull BlockPos pos, @NotNull Player player, @NotNull BlockHitResult hitResult
     ) {
-        if (world.isClientSide) {
+        if (level.isClientSide) {
             return InteractionResult.SUCCESS;
         }
-        BlockEntity blockEntity = world.getBlockEntity(blockPos);
+        BlockEntity blockEntity = level.getBlockEntity(pos);
         if (blockEntity instanceof StirlingRecyclingCrusherEntity) {
             player.openMenu((MenuProvider) blockEntity);
         }
@@ -71,18 +67,6 @@ public class StirlingRecyclingCrusherBlock extends BaseEntityBlock {
     @Override
     public BlockState getStateForPlacement(@NotNull BlockPlaceContext context) {
         return this.defaultBlockState().setValue(FACING, context.getHorizontalDirection().getOpposite());
-    }
-
-    @Override
-    public void setPlacedBy(
-            @NotNull Level world, @NotNull BlockPos blockPos, @NotNull BlockState blockState, @Nullable LivingEntity player, @NotNull ItemStack itemStack
-    ) {
-        if (itemStack.hasCustomHoverName()) {
-            BlockEntity blockEntity = world.getBlockEntity(blockPos);
-            if (blockEntity instanceof StirlingRecyclingCrusherEntity) {
-                ((StirlingRecyclingCrusherEntity) blockEntity).setCustomName(itemStack.getHoverName());
-            }
-        }
     }
 
     @Override
@@ -163,8 +147,8 @@ public class StirlingRecyclingCrusherBlock extends BaseEntityBlock {
                 world.playLocalSound(x, y, z, SoundEvents.BLASTFURNACE_FIRE_CRACKLE, SoundSource.BLOCKS, 1, 1, false);
             }
 
-            Direction      direction = blockState.getValue(FACING);
-            Direction.Axis axis      = direction.getAxis();
+            Direction direction = blockState.getValue(FACING);
+            Direction.Axis axis = direction.getAxis();
 
             double directionScale = 0.52;
             double randomValue    = random.nextDouble() * 0.6 - 0.3;

@@ -1,13 +1,21 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_scrap": {
+    "has_composter": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "recycling_factory:scrap"
-            ]
+            "items": "minecraft:composter"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_iron_ingot": {
+      "conditions": {
+        "items": [
+          {
+            "items": "#c:ingots/iron"
           }
         ]
       },
@@ -15,7 +23,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "recycling_factory:basic_scrap_box"
+        "recipe": "recycling_factory:rubbish_bin"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +31,13 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_scrap"
+      "has_composter",
+      "has_iron_ingot"
     ]
   ],
   "rewards": {
     "recipes": [
-      "recycling_factory:basic_scrap_box"
+      "recycling_factory:rubbish_bin"
     ]
   }
 }
